@@ -61,10 +61,16 @@ fdebench = mean(tier1_task1, tier1_task2, tier1_task3)
 ### Efficiency Detail
 
 ```
-efficiency = (0.50 x latency_score + 0.50 x cost_score) x 100
+efficiency = (0.60 x latency_score + 0.40 x cost_score) x 100
 ```
 
-**Latency:** P95 response time. P95 <= 500ms = 1.0, P95 >= 5000ms = 0.0, linear between.
+**Latency:** P95 response time, normalized linearly with per-task thresholds:
+
+| Task | Best (1.0) | Worst (0.0) |
+|------|-----------|-------------|
+| Triage (`/triage`) | ≤ 500 ms | ≥ 5,000 ms |
+| Extract (`/extract`) | ≤ 2,000 ms | ≥ 20,000 ms |
+| Orchestrate (`/orchestrate`) | ≤ 1,000 ms | ≥ 10,000 ms |
 
 **Cost:** based on model tier from `X-Model-Name` response header. Return this header on every call.
 

@@ -37,11 +37,11 @@ Classify deep-space signals: category, priority, routing, missing info, and esca
 
 | Dimension | Weight | What's measured |
 |-----------|--------|-----------------|
-| Category F1 | 25% | 8 signal categories |
-| Priority F1 | 25% | P1–P4, partial credit |
-| Routing F1 | 25% | 7 response divisions |
-| Missing Info F1 | 15% | 16 constrained vocabulary terms |
-| Escalation F1 | 10% | Binary flag |
+| Category F1 | 24% | Macro F1 across 8 signal categories |
+| Priority | 24% | Mean ordinal partial credit (P1-P4, off-by-one = 0.67) |
+| Routing F1 | 24% | Macro F1 across 7 response divisions |
+| Missing Info F1 | 17% | Mean per-ticket set F1 across 16 constrained terms |
+| Escalation F1 | 11% | Binary F1 |
 
 ### Task 2 — Document Extraction
 
@@ -62,11 +62,11 @@ Multi-step planning and execution: understand the goal, select tools, execute in
 
 | Dimension | Weight | What's measured |
 |-----------|--------|-----------------|
-| Tool selection | 30% | Correct tool for each step |
-| Parameter accuracy | 25% | Right inputs passed to each tool |
-| Execution order | 25% | Steps in correct sequence |
-| Constraint satisfaction | 10% | Budget, time, dependency limits |
-| Error recovery | 10% | Graceful handling of failed steps |
+| Goal completion | 20% | Data-driven outcome assertions on end-state |
+| Tool selection | 15% | Multiset F1 on tools used |
+| Parameter accuracy | 5% | Per-call parameter match (low variance, demoted) |
+| Ordering correctness | 20% | Dependency/causal constraint satisfaction |
+| Constraint compliance | 40% | Outcome-based assertions (primary differentiator) |
 
 > **Tip:** Focus on getting every dimension right, not just the easy ones. Resolution is 50% of your score and the biggest lever you have. Test locally with sample data before submitting.
 
@@ -96,11 +96,11 @@ Based on the model name from your `X-Model-Name` response header:
 
 | Tier | Score | Examples |
 |------|-------|---------|
-| Nano | 100% | gpt-4.1-nano, gpt-4o-mini |
-| Mini | 90% | gpt-4.1-mini, gpt-4o-mini |
-| Standard | 75% | gpt-4o, gpt-4.1 |
-| Full | 50% | gpt-4, gpt-4-turbo |
-| Premium | 30% | o1, o3, reasoning models |
+| Nano | 100% | gpt-5-nano, gpt-4.1-nano, phi-4, llama-4, qwen |
+| Mini | 90% | gpt-5-mini, gpt-4.1-mini, gpt-4o-mini, claude-haiku, deepseek-r1 |
+| Standard | 75% | gpt-5, gpt-4.1, gpt-4o, claude-sonnet, o4-mini |
+| Full | 50% | gpt-5-pro, gpt-4-turbo, o3, grok-4 |
+| Premium | 30% | o1, o3-pro, claude-opus, gpt-4.5 |
 
 > **Tip:** Choose smaller models when accuracy allows, batch where possible, and cache repeated lookups to reduce both latency and cost.
 
