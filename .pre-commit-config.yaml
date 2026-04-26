@@ -10,6 +10,7 @@ repos:
     hooks:
       - id: check-json
         name: check json
+        exclude: py/data/task2/public_eval_50\.json
       - id: check-toml
         name: check toml
       - id: check-yaml
@@ -20,6 +21,7 @@ repos:
         name: trailing whitespace
       - id: pretty-format-json
         name: format json
+        exclude: py/data/task2/public_eval_50\.json
         args:
           - --autofix
           - --indent=4

@@ -18,7 +18,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-0"
                 },
-                "expected_result": "Renewal in 177 days \u2192 low risk",
+                "expected_result": "Renewal in 177 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -29,7 +29,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-1"
                 },
-                "expected_result": "Renewal in 13 days \u2192 high risk",
+                "expected_result": "Renewal in 13 days → high risk",
                 "depends_on": [
                     1
                 ]
@@ -40,7 +40,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-2"
                 },
-                "expected_result": "Renewal in 177 days \u2192 low risk",
+                "expected_result": "Renewal in 177 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -51,7 +51,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-3"
                 },
-                "expected_result": "Renewal in 107 days \u2192 low risk",
+                "expected_result": "Renewal in 107 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -62,7 +62,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-4"
                 },
-                "expected_result": "Renewal in 152 days \u2192 low risk",
+                "expected_result": "Renewal in 152 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -73,7 +73,7 @@
                 "parameters": {
                     "account_id": "ACC-0170-5"
                 },
-                "expected_result": "Renewal in 160 days \u2192 low risk",
+                "expected_result": "Renewal in 160 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -84,13 +84,13 @@
                 "parameters": {
                     "user_id": "lead_retention",
                     "channel": "slack",
-                    "message": "Churn risk (high): ACC-0170-1 \u2014 renewal in 13 days"
+                    "message": "Churn risk (high): ACC-0170-1 — renewal in 13 days"
                 },
                 "expected_result": "Alerted retention team",
                 "depends_on": [
                     7
                 ],
-                "condition": "Risk is high \u2192 route to retention"
+                "condition": "Risk is high → route to retention"
             },
             {
                 "step": 9,
@@ -133,7 +133,62 @@
             "Low-risk accounts (renewal > 90 days) require no action",
             "Log all escalations to the audit trail"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "retention team notified for high-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "customer success notified for medium-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit log for all alerts",
+                "check": "call_count",
+                "tool": "audit_log",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "retention gets high-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "customer success gets medium-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 4 steps",
+                "check": "tool_count",
+                "min": 4
+            }
+        ]
     },
     {
         "task_id": "TASK-0306",
@@ -154,7 +209,7 @@
                 "parameters": {
                     "account_id": "ACC-0306-0"
                 },
-                "expected_result": "Renewal in -6 days \u2192 high risk",
+                "expected_result": "Renewal in -6 days → high risk",
                 "depends_on": [
                     1
                 ]
@@ -165,7 +220,7 @@
                 "parameters": {
                     "account_id": "ACC-0306-1"
                 },
-                "expected_result": "Renewal in 148 days \u2192 low risk",
+                "expected_result": "Renewal in 148 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -176,13 +231,13 @@
                 "parameters": {
                     "user_id": "lead_retention",
                     "channel": "slack",
-                    "message": "Churn risk (high): ACC-0306-0 \u2014 renewal in -6 days"
+                    "message": "Churn risk (high): ACC-0306-0 — renewal in -6 days"
                 },
                 "expected_result": "Alerted retention team",
                 "depends_on": [
                     3
                 ],
-                "condition": "Risk is high \u2192 route to retention"
+                "condition": "Risk is high → route to retention"
             },
             {
                 "step": 5,
@@ -221,7 +276,62 @@
             "Low-risk accounts (renewal > 90 days) require no action",
             "Log all escalations to the audit trail"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "retention team notified for high-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "customer success notified for medium-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit log for all alerts",
+                "check": "call_count",
+                "tool": "audit_log",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "retention gets high-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "customer success gets medium-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0308",
@@ -242,7 +352,7 @@
                 "parameters": {
                     "account_id": "ACC-0308-0"
                 },
-                "expected_result": "Renewal in 158 days \u2192 low risk",
+                "expected_result": "Renewal in 158 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -253,7 +363,7 @@
                 "parameters": {
                     "account_id": "ACC-0308-1"
                 },
-                "expected_result": "Renewal in 115 days \u2192 low risk",
+                "expected_result": "Renewal in 115 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -264,7 +374,7 @@
                 "parameters": {
                     "account_id": "ACC-0308-2"
                 },
-                "expected_result": "Renewal in 124 days \u2192 low risk",
+                "expected_result": "Renewal in 124 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -290,7 +400,62 @@
             "Low-risk accounts (renewal > 90 days) require no action",
             "Log all escalations to the audit trail"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "retention team notified for high-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "customer success notified for medium-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit log for all alerts",
+                "check": "call_count",
+                "tool": "audit_log",
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "retention gets high-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "customer success gets medium-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0340",
@@ -311,7 +476,7 @@
                 "parameters": {
                     "account_id": "ACC-0340-0"
                 },
-                "expected_result": "Renewal in 133 days \u2192 low risk",
+                "expected_result": "Renewal in 133 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -322,7 +487,7 @@
                 "parameters": {
                     "account_id": "ACC-0340-1"
                 },
-                "expected_result": "Renewal in 153 days \u2192 low risk",
+                "expected_result": "Renewal in 153 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -347,7 +512,62 @@
             "Low-risk accounts (renewal > 90 days) require no action",
             "Log all escalations to the audit trail"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "retention team notified for high-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "customer success notified for medium-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit log for all alerts",
+                "check": "call_count",
+                "tool": "audit_log",
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "retention gets high-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "customer success gets medium-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0255",
@@ -368,7 +588,7 @@
                 "parameters": {
                     "account_id": "ACC-0255-0"
                 },
-                "expected_result": "Renewal in 129 days \u2192 low risk",
+                "expected_result": "Renewal in 129 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -379,7 +599,7 @@
                 "parameters": {
                     "account_id": "ACC-0255-1"
                 },
-                "expected_result": "Renewal in 65 days \u2192 medium risk",
+                "expected_result": "Renewal in 65 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -390,7 +610,7 @@
                 "parameters": {
                     "account_id": "ACC-0255-2"
                 },
-                "expected_result": "Renewal in 152 days \u2192 low risk",
+                "expected_result": "Renewal in 152 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -401,13 +621,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0255-1 \u2014 renewal in 65 days"
+                    "message": "Churn risk (medium): ACC-0255-1 — renewal in 65 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     4
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 6,
@@ -447,7 +667,62 @@
             "Low-risk accounts (renewal > 90 days) require no action",
             "Log all escalations to the audit trail"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "retention team notified for high-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "customer success notified for medium-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit log for all alerts",
+                "check": "call_count",
+                "tool": "audit_log",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "retention gets high-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "customer success gets medium-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 3 steps",
+                "check": "tool_count",
+                "min": 3
+            }
+        ]
     },
     {
         "task_id": "TASK-0369",
@@ -468,7 +743,7 @@
                 "parameters": {
                     "account_id": "ACC-0369-0"
                 },
-                "expected_result": "Renewal in 136 days \u2192 low risk",
+                "expected_result": "Renewal in 136 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -479,7 +754,7 @@
                 "parameters": {
                     "account_id": "ACC-0369-1"
                 },
-                "expected_result": "Renewal in 176 days \u2192 low risk",
+                "expected_result": "Renewal in 176 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -490,7 +765,7 @@
                 "parameters": {
                     "account_id": "ACC-0369-2"
                 },
-                "expected_result": "Renewal in 54 days \u2192 medium risk",
+                "expected_result": "Renewal in 54 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -501,7 +776,7 @@
                 "parameters": {
                     "account_id": "ACC-0369-3"
                 },
-                "expected_result": "Renewal in 104 days \u2192 low risk",
+                "expected_result": "Renewal in 104 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -512,13 +787,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0369-2 \u2014 renewal in 54 days"
+                    "message": "Churn risk (medium): ACC-0369-2 — renewal in 54 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     5
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 7,
@@ -559,7 +834,62 @@
             "Low-risk accounts (renewal > 90 days) require no action",
             "Log all escalations to the audit trail"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "retention team notified for high-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "customer success notified for medium-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit log for all alerts",
+                "check": "call_count",
+                "tool": "audit_log",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "retention gets high-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "customer success gets medium-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 3 steps",
+                "check": "tool_count",
+                "min": 3
+            }
+        ]
     },
     {
         "task_id": "TASK-0042",
@@ -580,7 +910,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-0"
                 },
-                "expected_result": "Renewal in 65 days \u2192 medium risk",
+                "expected_result": "Renewal in 65 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -591,7 +921,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-1"
                 },
-                "expected_result": "Renewal in 46 days \u2192 medium risk",
+                "expected_result": "Renewal in 46 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -602,7 +932,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-2"
                 },
-                "expected_result": "Renewal in 93 days \u2192 low risk",
+                "expected_result": "Renewal in 93 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -613,7 +943,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-3"
                 },
-                "expected_result": "Renewal in 167 days \u2192 low risk",
+                "expected_result": "Renewal in 167 days → low risk",
                 "depends_on": [
                     1
                 ]
@@ -624,7 +954,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-4"
                 },
-                "expected_result": "Renewal in 52 days \u2192 medium risk",
+                "expected_result": "Renewal in 52 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -635,7 +965,7 @@
                 "parameters": {
                     "account_id": "ACC-0042-5"
                 },
-                "expected_result": "Renewal in 68 days \u2192 medium risk",
+                "expected_result": "Renewal in 68 days → medium risk",
                 "depends_on": [
                     1
                 ]
@@ -646,13 +976,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0042-0 \u2014 renewal in 65 days"
+                    "message": "Churn risk (medium): ACC-0042-0 — renewal in 65 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     7
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 9,
@@ -675,13 +1005,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0042-1 \u2014 renewal in 46 days"
+                    "message": "Churn risk (medium): ACC-0042-1 — renewal in 46 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     9
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 11,
@@ -704,13 +1034,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0042-4 \u2014 renewal in 52 days"
+                    "message": "Churn risk (medium): ACC-0042-4 — renewal in 52 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     11
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 13,
@@ -733,13 +1063,13 @@
                 "parameters": {
                     "user_id": "lead_customer_success",
                     "channel": "slack",
-                    "message": "Churn risk (medium): ACC-0042-5 \u2014 renewal in 68 days"
+                    "message": "Churn risk (medium): ACC-0042-5 — renewal in 68 days"
                 },
                 "expected_result": "Alerted customer_success team",
                 "depends_on": [
                     13
                 ],
-                "condition": "Risk is medium \u2192 route to customer_success"
+                "condition": "Risk is medium → route to customer_success"
             },
             {
                 "step": 15,
@@ -788,7 +1118,62 @@
             "Low-risk accounts (renewal > 90 days) require no action",
             "Log all escalations to the audit trail"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "retention team notified for high-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "customer success notified for medium-risk",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 4
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit log for all alerts",
+                "check": "call_count",
+                "tool": "audit_log",
+                "equals": 4
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "retention gets high-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_retention"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "customer success gets medium-risk only",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "lead_customer_success"
+                },
+                "equals": 4
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 7 steps",
+                "check": "tool_count",
+                "min": 7
+            }
+        ]
     },
     {
         "task_id": "TASK-0199",
@@ -830,7 +1215,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is low \u2192 0% discount"
+                "condition": "Usage is low → 0% discount"
             },
             {
                 "step": 4,
@@ -869,7 +1254,65 @@
             "Discounts above 0% require finance team approval",
             "Log all renewal actions"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "renewal quote sent with correct plan",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "renewal_quote",
+                    "variables": {
+                        "plan": "professional"
+                    }
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no finance approval needed",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged renewal_initiated",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "renewal_initiated"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "finance approval correct",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0187",
@@ -911,7 +1354,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is high \u2192 15% discount"
+                "condition": "Usage is high → 15% discount"
             },
             {
                 "step": 4,
@@ -965,7 +1408,65 @@
             "Discounts above 0% require finance team approval",
             "Log all renewal actions"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "renewal quote sent with correct plan",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "renewal_quote",
+                    "variables": {
+                        "plan": "enterprise"
+                    }
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "finance approval requested",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged renewal_initiated",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "renewal_initiated"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "finance approval correct",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0014",
@@ -1007,7 +1508,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is high \u2192 15% discount"
+                "condition": "Usage is high → 15% discount"
             },
             {
                 "step": 4,
@@ -1061,7 +1562,65 @@
             "Discounts above 0% require finance team approval",
             "Log all renewal actions"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "renewal quote sent with correct plan",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "renewal_quote",
+                    "variables": {
+                        "plan": "enterprise"
+                    }
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "finance approval requested",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged renewal_initiated",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "renewal_initiated"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "finance approval correct",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0360",
@@ -1103,7 +1662,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is low \u2192 0% discount"
+                "condition": "Usage is low → 0% discount"
             },
             {
                 "step": 4,
@@ -1142,7 +1701,65 @@
             "Discounts above 0% require finance team approval",
             "Log all renewal actions"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "renewal quote sent with correct plan",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "renewal_quote",
+                    "variables": {
+                        "plan": "enterprise"
+                    }
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no finance approval needed",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged renewal_initiated",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "renewal_initiated"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "finance approval correct",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0327",
@@ -1184,7 +1801,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is low \u2192 0% discount"
+                "condition": "Usage is low → 0% discount"
             },
             {
                 "step": 4,
@@ -1223,7 +1840,65 @@
             "Discounts above 0% require finance team approval",
             "Log all renewal actions"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "renewal quote sent with correct plan",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "renewal_quote",
+                    "variables": {
+                        "plan": "enterprise"
+                    }
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no finance approval needed",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged renewal_initiated",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "renewal_initiated"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "finance approval correct",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0225",
@@ -1265,7 +1940,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is medium \u2192 5% discount"
+                "condition": "Usage is medium → 5% discount"
             },
             {
                 "step": 4,
@@ -1319,7 +1994,65 @@
             "Discounts above 0% require finance team approval",
             "Log all renewal actions"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "renewal quote sent with correct plan",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "renewal_quote",
+                    "variables": {
+                        "plan": "professional"
+                    }
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "finance approval requested",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged renewal_initiated",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "renewal_initiated"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "finance approval correct",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0031",
@@ -1361,7 +2094,7 @@
                     1,
                     2
                 ],
-                "condition": "Usage is low \u2192 0% discount"
+                "condition": "Usage is low → 0% discount"
             },
             {
                 "step": 4,
@@ -1400,7 +2133,65 @@
             "Discounts above 0% require finance team approval",
             "Log all renewal actions"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "renewal quote sent with correct plan",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "renewal_quote",
+                    "variables": {
+                        "plan": "professional"
+                    }
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no finance approval needed",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged renewal_initiated",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "renewal_initiated"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "finance approval correct",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "finance_approver"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0342",
@@ -1421,7 +2212,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Filter-H800 affected in APAC-SOUTH \u2014 severity: high"
+                    "message": "Incident: Filter-H800 affected in APAC-SOUTH — severity: high"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1440,7 +2231,7 @@
                 "depends_on": [
                     2
                 ],
-                "condition": "Severity is high \u2014 requires management escalation"
+                "condition": "Severity is high — requires management escalation"
             },
             {
                 "step": 4,
@@ -1481,7 +2272,74 @@
             "Use SMS for on-call, slack for manager",
             "Log all incident responses"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all affected warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "oncall engineer notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "manager escalated",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged incident_response",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "incident_response"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "oncall via SMS",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer",
+                    "channel": "sms"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "manager via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager",
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0386",
@@ -1512,7 +2370,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Sensor-B200 affected in EU-CENTRAL, US-EAST \u2014 severity: critical"
+                    "message": "Incident: Sensor-B200 affected in EU-CENTRAL, US-EAST — severity: critical"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1532,7 +2390,7 @@
                 "depends_on": [
                     3
                 ],
-                "condition": "Severity is critical \u2014 requires management escalation"
+                "condition": "Severity is critical — requires management escalation"
             },
             {
                 "step": 5,
@@ -1575,7 +2433,74 @@
             "Use SMS for on-call, slack for manager",
             "Log all incident responses"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all affected warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 2
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "oncall engineer notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "manager escalated",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged incident_response",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "incident_response"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "oncall via SMS",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer",
+                    "channel": "sms"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "manager via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager",
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0013",
@@ -1606,7 +2531,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Cable-D400 affected in APAC-SOUTH, US-WEST \u2014 severity: low"
+                    "message": "Incident: Cable-D400 affected in APAC-SOUTH, US-WEST — severity: low"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1654,7 +2579,74 @@
             "Use SMS for on-call, slack for manager",
             "Log all incident responses"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all affected warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 2
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "oncall engineer notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no manager escalation",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged incident_response",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "incident_response"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "oncall via SMS",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer",
+                    "channel": "sms"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "no manager escalation",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager",
+                    "channel": "slack"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0433",
@@ -1695,7 +2687,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Module-C300 affected in US-EAST, US-WEST, APAC-SOUTH \u2014 severity: critical"
+                    "message": "Incident: Module-C300 affected in US-EAST, US-WEST, APAC-SOUTH — severity: critical"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1716,7 +2708,7 @@
                 "depends_on": [
                     4
                 ],
-                "condition": "Severity is critical \u2014 requires management escalation"
+                "condition": "Severity is critical — requires management escalation"
             },
             {
                 "step": 6,
@@ -1761,7 +2753,74 @@
             "Use SMS for on-call, slack for manager",
             "Log all incident responses"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all affected warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 3
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "oncall engineer notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "manager escalated",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged incident_response",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "incident_response"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "oncall via SMS",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer",
+                    "channel": "sms"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "manager via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager",
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 3 steps",
+                "check": "tool_count",
+                "min": 3
+            }
+        ]
     },
     {
         "task_id": "TASK-0150",
@@ -1792,7 +2851,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Valve-G700 affected in EU-CENTRAL, US-EAST \u2014 severity: high"
+                    "message": "Incident: Valve-G700 affected in EU-CENTRAL, US-EAST — severity: high"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1812,7 +2871,7 @@
                 "depends_on": [
                     3
                 ],
-                "condition": "Severity is high \u2014 requires management escalation"
+                "condition": "Severity is high — requires management escalation"
             },
             {
                 "step": 5,
@@ -1855,7 +2914,74 @@
             "Use SMS for on-call, slack for manager",
             "Log all incident responses"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all affected warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 2
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "oncall engineer notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "manager escalated",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged incident_response",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "incident_response"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "oncall via SMS",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer",
+                    "channel": "sms"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "manager via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager",
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0363",
@@ -1896,7 +3022,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Valve-G700 affected in APAC-SOUTH, LATAM-NORTH, US-WEST \u2014 severity: critical"
+                    "message": "Incident: Valve-G700 affected in APAC-SOUTH, LATAM-NORTH, US-WEST — severity: critical"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -1917,7 +3043,7 @@
                 "depends_on": [
                     4
                 ],
-                "condition": "Severity is critical \u2014 requires management escalation"
+                "condition": "Severity is critical — requires management escalation"
             },
             {
                 "step": 6,
@@ -1962,7 +3088,74 @@
             "Use SMS for on-call, slack for manager",
             "Log all incident responses"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all affected warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 3
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "oncall engineer notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "manager escalated",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged incident_response",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "incident_response"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "oncall via SMS",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer",
+                    "channel": "sms"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "manager via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager",
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 3 steps",
+                "check": "tool_count",
+                "min": 3
+            }
+        ]
     },
     {
         "task_id": "TASK-0391",
@@ -2003,7 +3196,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Filter-H800 affected in LATAM-NORTH, APAC-SOUTH, US-WEST \u2014 severity: critical"
+                    "message": "Incident: Filter-H800 affected in LATAM-NORTH, APAC-SOUTH, US-WEST — severity: critical"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -2024,7 +3217,7 @@
                 "depends_on": [
                     4
                 ],
-                "condition": "Severity is critical \u2014 requires management escalation"
+                "condition": "Severity is critical — requires management escalation"
             },
             {
                 "step": 6,
@@ -2069,7 +3262,74 @@
             "Use SMS for on-call, slack for manager",
             "Log all incident responses"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all affected warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 3
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "oncall engineer notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "manager escalated",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged incident_response",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "incident_response"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "oncall via SMS",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer",
+                    "channel": "sms"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "manager via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager",
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 3 steps",
+                "check": "tool_count",
+                "min": 3
+            }
+        ]
     },
     {
         "task_id": "TASK-0430",
@@ -2129,7 +3389,46 @@
             "Check ALL warehouses before sending any alerts",
             "If a warehouse query fails (429/500), retry once then skip"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 2
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent correct number of alerts",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all alerts via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "correct alert count",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0357",
@@ -2213,7 +3512,46 @@
             "Check ALL warehouses before sending any alerts",
             "If a warehouse query fails (429/500), retry once then skip"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 4
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent correct number of alerts",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all alerts via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "correct alert count",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0245",
@@ -2254,7 +3592,46 @@
             "Use slack channel for all warehouse notifications",
             "Check ALL warehouses before sending any alerts"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 2
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent correct number of alerts",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all alerts via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "correct alert count",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0274",
@@ -2343,7 +3720,46 @@
             "Use slack channel for all warehouse notifications",
             "Check ALL warehouses before sending any alerts"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 3
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent correct number of alerts",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 2
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all alerts via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 2
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "correct alert count",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 2
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0136",
@@ -2426,7 +3842,46 @@
             "Use slack channel for all warehouse notifications",
             "Check ALL warehouses before sending any alerts"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 4
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent correct number of alerts",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all alerts via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "correct alert count",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0235",
@@ -2467,7 +3922,46 @@
             "Use slack channel for all warehouse notifications",
             "Check ALL warehouses before sending any alerts"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 2
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent correct number of alerts",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all alerts via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "correct alert count",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0016",
@@ -2526,7 +4020,46 @@
             "Use slack channel for all warehouse notifications",
             "Check ALL warehouses before sending any alerts"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 2
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent correct number of alerts",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all alerts via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "correct alert count",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0248",
@@ -2611,11 +4144,66 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "meeting invite sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no notification needed",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged meeting_scheduled",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "meeting_scheduled"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all notifications via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "meeting invite correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0047",
@@ -2700,11 +4288,66 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "meeting invite sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no notification needed",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged meeting_scheduled",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "meeting_scheduled"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all notifications via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "meeting invite correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0376",
@@ -2748,7 +4391,7 @@
                 "parameters": {
                     "user_id": "REP-349",
                     "channel": "slack",
-                    "message": "Margie's Travel is free tier \u2014 no meetings available"
+                    "message": "Margie's Travel is free tier — no meetings available"
                 },
                 "expected_result": "Rep notified",
                 "depends_on": [
@@ -2788,11 +4431,66 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "no meeting invite",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "rep notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged meeting_blocked",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "meeting_blocked"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all notifications via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "meeting invite correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0027",
@@ -2836,7 +4534,7 @@
                 "parameters": {
                     "user_id": "REP-530",
                     "channel": "slack",
-                    "message": "Coho Vineyard is free tier \u2014 no meetings available"
+                    "message": "Coho Vineyard is free tier — no meetings available"
                 },
                 "expected_result": "Rep notified",
                 "depends_on": [
@@ -2876,11 +4574,66 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "no meeting invite",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "rep notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged meeting_blocked",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "meeting_blocked"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all notifications via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "meeting invite correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0384",
@@ -2965,11 +4718,66 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "meeting invite sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no notification needed",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged meeting_scheduled",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "meeting_scheduled"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all notifications via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "meeting invite correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0060",
@@ -3053,11 +4861,66 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "no meeting invite",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "rep notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged meeting_blocked",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "meeting_blocked"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all notifications via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "meeting invite correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0005",
@@ -3101,7 +4964,7 @@
                 "parameters": {
                     "user_id": "REP-573",
                     "channel": "slack",
-                    "message": "Relecloud is free tier \u2014 no meetings available"
+                    "message": "Relecloud is free tier — no meetings available"
                 },
                 "expected_result": "Rep notified",
                 "depends_on": [
@@ -3141,11 +5004,66 @@
         },
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "no meeting invite",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "rep notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged meeting_blocked",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "meeting_blocked"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "all notifications via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "meeting invite correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "meeting_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0302",
@@ -3261,7 +5179,82 @@
             "Kickoff must be scheduled within 5 business days",
             "All actions must be logged to the audit trail"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "welcome email sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "kickoff invite sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "kickoff_invite"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no sales notification",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged onboarding_started",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "onboarding_started"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "no sales notification",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "welcome email correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 3 steps",
+                "check": "tool_count",
+                "min": 3
+            }
+        ]
     },
     {
         "task_id": "TASK-0471",
@@ -3298,7 +5291,7 @@
                 "depends_on": [
                     2
                 ],
-                "condition": "Subscription is pending \u2014 cannot onboard"
+                "condition": "Subscription is pending — cannot onboard"
             },
             {
                 "step": 4,
@@ -3334,7 +5327,82 @@
             "Kickoff must be scheduled within 5 business days",
             "All actions must be logged to the audit trail"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "no welcome email sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no kickoff invite sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "kickoff_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sales team notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged onboarding_blocked",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "onboarding_blocked"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "sales team notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "welcome email correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0035",
@@ -3450,7 +5518,82 @@
             "Kickoff must be scheduled within 5 business days",
             "All actions must be logged to the audit trail"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "welcome email sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "kickoff invite sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "kickoff_invite"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no sales notification",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged onboarding_started",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "onboarding_started"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "no sales notification",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "welcome email correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 3 steps",
+                "check": "tool_count",
+                "min": 3
+            }
+        ]
     },
     {
         "task_id": "TASK-0288",
@@ -3487,7 +5630,7 @@
                 "depends_on": [
                     2
                 ],
-                "condition": "Subscription is inactive \u2014 cannot onboard"
+                "condition": "Subscription is inactive — cannot onboard"
             },
             {
                 "step": 4,
@@ -3523,7 +5666,82 @@
             "Kickoff must be scheduled within 5 business days",
             "All actions must be logged to the audit trail"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "no welcome email sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no kickoff invite sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "kickoff_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sales team notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged onboarding_blocked",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "onboarding_blocked"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "sales team notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "welcome email correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0446",
@@ -3560,7 +5778,7 @@
                 "depends_on": [
                     2
                 ],
-                "condition": "Subscription is inactive \u2014 cannot onboard"
+                "condition": "Subscription is inactive — cannot onboard"
             },
             {
                 "step": 4,
@@ -3596,7 +5814,82 @@
             "Kickoff must be scheduled within 5 business days",
             "All actions must be logged to the audit trail"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "no welcome email sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no kickoff invite sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "kickoff_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sales team notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged onboarding_blocked",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "onboarding_blocked"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "sales team notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "welcome email correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0307",
@@ -3712,7 +6005,82 @@
             "Kickoff must be scheduled within 5 business days",
             "All actions must be logged to the audit trail"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "welcome email sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "kickoff invite sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "kickoff_invite"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no sales notification",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged onboarding_started",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "onboarding_started"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "no sales notification",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "welcome email correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 3 steps",
+                "check": "tool_count",
+                "min": 3
+            }
+        ]
     },
     {
         "task_id": "TASK-0417",
@@ -3749,7 +6117,7 @@
                 "depends_on": [
                     2
                 ],
-                "condition": "Subscription is pending \u2014 cannot onboard"
+                "condition": "Subscription is pending — cannot onboard"
             },
             {
                 "step": 4,
@@ -3785,7 +6153,82 @@
             "Kickoff must be scheduled within 5 business days",
             "All actions must be logged to the audit trail"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "no welcome email sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "no kickoff invite sent",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "kickoff_invite"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sales team notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged onboarding_blocked",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "onboarding_blocked"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "sales team notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "sales_team"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "welcome email correct",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "template": "welcome"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit trail present",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     },
     {
         "task_id": "TASK-0418",
@@ -4003,7 +6446,93 @@
             "Maximum 3 emails per batch",
             "If a subscription check fails, skip that account and continue"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "checked all subscriptions",
+                "check": "call_count",
+                "tool": "subscription_check",
+                "min": 7
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent the right number of emails",
+                "check": "call_count",
+                "tool": "email_send",
+                "equals": 3
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "logged all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 3
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0418-1",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0418-1"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0418-2",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0418-2"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0418-3",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0418-3"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0418-4",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0418-4"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "email count within limit",
+                "check": "call_count",
+                "tool": "email_send",
+                "max": 3
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit log for all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "email_sent"
+                },
+                "min": 3
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 7 steps",
+                "check": "tool_count",
+                "min": 7
+            }
+        ]
     },
     {
         "task_id": "TASK-0015",
@@ -4120,7 +6649,83 @@
             "Log all email sends to the audit log",
             "Maximum 3 emails per batch"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "checked all subscriptions",
+                "check": "call_count",
+                "tool": "subscription_check",
+                "min": 4
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent the right number of emails",
+                "check": "call_count",
+                "tool": "email_send",
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "logged all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0015-0",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0015-0"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0015-1",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0015-1"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0015-2",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0015-2"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "email count within limit",
+                "check": "call_count",
+                "tool": "email_send",
+                "max": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit log for all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "email_sent"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 3 steps",
+                "check": "tool_count",
+                "min": 3
+            }
+        ]
     },
     {
         "task_id": "TASK-0351",
@@ -4310,7 +6915,73 @@
             "Maximum 3 emails per batch",
             "If a subscription check fails, skip that account and continue"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "checked all subscriptions",
+                "check": "call_count",
+                "tool": "subscription_check",
+                "min": 5
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent the right number of emails",
+                "check": "call_count",
+                "tool": "email_send",
+                "equals": 3
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "logged all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 3
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0351-1",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0351-1"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0351-3",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0351-3"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "email count within limit",
+                "check": "call_count",
+                "tool": "email_send",
+                "max": 3
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit log for all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "email_sent"
+                },
+                "min": 3
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 6 steps",
+                "check": "tool_count",
+                "min": 6
+            }
+        ]
     },
     {
         "task_id": "TASK-0084",
@@ -4556,7 +7227,53 @@
             "Log all email sends to the audit log",
             "Maximum 5 emails per batch"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "checked all subscriptions",
+                "check": "call_count",
+                "tool": "subscription_check",
+                "min": 5
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent the right number of emails",
+                "check": "call_count",
+                "tool": "email_send",
+                "equals": 5
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "logged all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 5
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "email count within limit",
+                "check": "call_count",
+                "tool": "email_send",
+                "max": 5
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit log for all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "email_sent"
+                },
+                "min": 5
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 8 steps",
+                "check": "tool_count",
+                "min": 8
+            }
+        ]
     },
     {
         "task_id": "TASK-0361",
@@ -4659,7 +7376,103 @@
             "Maximum 5 emails per batch",
             "If a subscription check fails, skip that account and continue"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "checked all subscriptions",
+                "check": "call_count",
+                "tool": "subscription_check",
+                "min": 5
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent the right number of emails",
+                "check": "call_count",
+                "tool": "email_send",
+                "equals": 0
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "logged all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0361-0",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0361-0"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0361-1",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0361-1"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0361-2",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0361-2"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0361-3",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0361-3"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0361-4",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0361-4"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "email count within limit",
+                "check": "call_count",
+                "tool": "email_send",
+                "max": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit log for all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "email_sent"
+                },
+                "min": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 3 steps",
+                "check": "tool_count",
+                "min": 3
+            }
+        ]
     },
     {
         "task_id": "TASK-0069",
@@ -4791,7 +7604,63 @@
             "Log all email sends to the audit log",
             "Maximum 3 emails per batch"
         ],
-        "difficulty": "standard"
+        "difficulty": "standard",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "checked all subscriptions",
+                "check": "call_count",
+                "tool": "subscription_check",
+                "min": 3
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent the right number of emails",
+                "check": "call_count",
+                "tool": "email_send",
+                "equals": 2
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "logged all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 2
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0069-0",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0069-0"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "email count within limit",
+                "check": "call_count",
+                "tool": "email_send",
+                "max": 2
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit log for all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "email_sent"
+                },
+                "min": 2
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 4 steps",
+                "check": "tool_count",
+                "min": 4
+            }
+        ]
     },
     {
         "task_id": "TASK-0406",
@@ -4923,7 +7792,93 @@
             "Maximum 3 emails per batch",
             "If a subscription check fails, skip that account and continue"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "checked all subscriptions",
+                "check": "call_count",
+                "tool": "subscription_check",
+                "min": 5
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "sent the right number of emails",
+                "check": "call_count",
+                "tool": "email_send",
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "logged all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0406-0",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0406-0"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0406-2",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0406-2"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0406-3",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0406-3"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "did not email skipped account ACC-0406-4",
+                "check": "call_count",
+                "tool": "email_send",
+                "match": {
+                    "account_id": "ACC-0406-4"
+                },
+                "equals": 0
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "email count within limit",
+                "check": "call_count",
+                "tool": "email_send",
+                "max": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "audit log for all email sends",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "email_sent"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 4 steps",
+                "check": "tool_count",
+                "min": 4
+            }
+        ]
     },
     {
         "task_id": "TASK-0450",
@@ -4954,7 +7909,7 @@
                 "parameters": {
                     "user_id": "oncall_engineer",
                     "channel": "sms",
-                    "message": "Incident: Filter-H800 affected in APAC-SOUTH, US-WEST \u2014 severity: critical"
+                    "message": "Incident: Filter-H800 affected in APAC-SOUTH, US-WEST — severity: critical"
                 },
                 "expected_result": "On-call notified",
                 "depends_on": [
@@ -4974,7 +7929,7 @@
                 "depends_on": [
                     3
                 ],
-                "condition": "Severity is critical \u2014 requires management escalation"
+                "condition": "Severity is critical — requires management escalation"
             },
             {
                 "step": 5,
@@ -5017,6 +7972,73 @@
             "Use SMS for on-call, slack for manager",
             "Log all incident responses"
         ],
-        "difficulty": "adversarial"
+        "difficulty": "adversarial",
+        "outcome_assertions": [
+            {
+                "dimension": "goal_completion",
+                "label": "queried all affected warehouses",
+                "check": "call_count",
+                "tool": "inventory_query",
+                "min": 2
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "oncall engineer notified",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "manager escalated",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "goal_completion",
+                "label": "audit logged incident_response",
+                "check": "call_count",
+                "tool": "audit_log",
+                "match": {
+                    "action": "incident_response"
+                },
+                "min": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "oncall via SMS",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "oncall_engineer",
+                    "channel": "sms"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "manager via slack",
+                "check": "call_count",
+                "tool": "notification_send",
+                "match": {
+                    "user_id": "engineering_manager",
+                    "channel": "slack"
+                },
+                "equals": 1
+            },
+            {
+                "dimension": "constraint_compliance",
+                "label": "executed at least 2 steps",
+                "check": "tool_count",
+                "min": 2
+            }
+        ]
     }
 ]

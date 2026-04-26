@@ -4367,7 +4367,7 @@
     },
     {
         "task_id": "TASK-0248",
-        "goal": "Schedule a demo meeting with Adventure Works (ACC-0248) \u2014 check tier, find availability with REP-963, and send invite or notify if blocked",
+        "goal": "Schedule a demo meeting with Adventure Works (ACC-0248) — check tier, find availability with REP-963, and send invite or notify if blocked",
         "available_tools": [
             {
                 "name": "audit_log",
@@ -4536,7 +4536,7 @@
         ],
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -4544,7 +4544,7 @@
     },
     {
         "task_id": "TASK-0047",
-        "goal": "Schedule a onboarding meeting with Lucerne Publishing (ACC-0047) \u2014 check tier, find availability with REP-740, and send invite or notify if blocked",
+        "goal": "Schedule a onboarding meeting with Lucerne Publishing (ACC-0047) — check tier, find availability with REP-740, and send invite or notify if blocked",
         "available_tools": [
             {
                 "name": "email_send",
@@ -4694,7 +4694,7 @@
         ],
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -4702,7 +4702,7 @@
     },
     {
         "task_id": "TASK-0376",
-        "goal": "Schedule a escalation meeting with Margie's Travel (ACC-0376) \u2014 check tier, find availability with REP-349, and send invite or notify if blocked",
+        "goal": "Schedule a escalation meeting with Margie's Travel (ACC-0376) — check tier, find availability with REP-349, and send invite or notify if blocked",
         "available_tools": [
             {
                 "name": "subscription_check",
@@ -4871,7 +4871,7 @@
         ],
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -4879,7 +4879,7 @@
     },
     {
         "task_id": "TASK-0027",
-        "goal": "Schedule a onboarding meeting with Coho Vineyard (ACC-0027) \u2014 check tier, find availability with REP-530, and send invite or notify if blocked",
+        "goal": "Schedule a onboarding meeting with Coho Vineyard (ACC-0027) — check tier, find availability with REP-530, and send invite or notify if blocked",
         "available_tools": [
             {
                 "name": "email_send",
@@ -5029,7 +5029,7 @@
         ],
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -5037,7 +5037,7 @@
     },
     {
         "task_id": "TASK-0384",
-        "goal": "Schedule a escalation meeting with Contoso Ltd (ACC-0384) \u2014 check tier, find availability with REP-145, and send invite or notify if blocked",
+        "goal": "Schedule a escalation meeting with Contoso Ltd (ACC-0384) — check tier, find availability with REP-145, and send invite or notify if blocked",
         "available_tools": [
             {
                 "name": "email_send",
@@ -5206,7 +5206,7 @@
         ],
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -5214,7 +5214,7 @@
     },
     {
         "task_id": "TASK-0060",
-        "goal": "Schedule a demo meeting with Humongous Insurance (ACC-0060) \u2014 check tier, find availability with REP-798, and send invite or notify if blocked",
+        "goal": "Schedule a demo meeting with Humongous Insurance (ACC-0060) — check tier, find availability with REP-798, and send invite or notify if blocked",
         "available_tools": [
             {
                 "name": "email_send",
@@ -5364,7 +5364,7 @@
         ],
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],
@@ -5372,7 +5372,7 @@
     },
     {
         "task_id": "TASK-0005",
-        "goal": "Schedule a onboarding meeting with Relecloud (ACC-0005) \u2014 check tier, find availability with REP-573, and send invite or notify if blocked",
+        "goal": "Schedule a onboarding meeting with Relecloud (ACC-0005) — check tier, find availability with REP-573, and send invite or notify if blocked",
         "available_tools": [
             {
                 "name": "calendar_check",
@@ -5541,7 +5541,7 @@
         ],
         "constraints": [
             "Enterprise and professional accounts get priority scheduling",
-            "Free-tier accounts cannot schedule meetings \u2014 notify the rep instead",
+            "Free-tier accounts cannot schedule meetings — notify the rep instead",
             "If no calendar slots available, notify the rep",
             "Log all scheduling outcomes"
         ],

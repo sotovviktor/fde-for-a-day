@@ -12,8 +12,7 @@ data/
 │   ├── sample.json                 # 25 signals — local dev set
 │   ├── sample_gold.json            # Gold answers for sample set
 │   ├── public_eval_50.json         # 50 signals — public eval set
-│   ├── public_eval_50_gold.json    # Gold answers for public eval
-│   └── public_eval.json            # 100 signals — extended smoke test (no gold)
+│   └── public_eval_50_gold.json    # Gold answers for public eval
 ├── task2/                          # Document Extraction (OCR)
 │   ├── input_schema.json           # POST /extract request schema
 │   ├── output_schema.json          # POST /extract response schema

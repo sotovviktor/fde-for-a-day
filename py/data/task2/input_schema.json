@@ -19,11 +19,16 @@
         },
         "content_format": {
             "type": "string",
-            "enum": ["image_base64"],
+            "enum": [
+                "image_base64"
+            ],
             "description": "Format of the content field."
         },
         "json_schema": {
-            "type": ["string", "null"],
+            "type": [
+                "string",
+                "null"
+            ],
             "description": "JSON schema (as a string) describing the expected output structure. Each document has a different schema."
         }
     }
