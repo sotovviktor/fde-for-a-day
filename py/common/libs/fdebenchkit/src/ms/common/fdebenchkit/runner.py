@@ -9,7 +9,6 @@ from typing import Any
 
 import httpx
 
-from ms.common.models.base import FrozenBaseModel
 from ms.common.fdebenchkit import TaskResolutionResult
 from ms.common.fdebenchkit import validate_resolution_result
 from ms.common.fdebenchkit.caller import CallResults
@@ -20,17 +19,18 @@ from ms.common.fdebenchkit.registry import get_task_definition
 from ms.common.fdebenchkit.weights import EFFICIENCY_WEIGHT_COST as WEIGHT_COST
 from ms.common.fdebenchkit.weights import EFFICIENCY_WEIGHT_LATENCY as WEIGHT_LATENCY
 from ms.common.fdebenchkit.weights import LATENCY_BEST_MS
-from ms.common.fdebenchkit.weights import LATENCY_WORST_MS
 from ms.common.fdebenchkit.weights import LATENCY_P50_BEST_MS
 from ms.common.fdebenchkit.weights import LATENCY_P50_WORST_MS
 from ms.common.fdebenchkit.weights import LATENCY_P95_BEST_MS
 from ms.common.fdebenchkit.weights import LATENCY_P95_WORST_MS
-from ms.common.fdebenchkit.weights import compute_latency_score
+from ms.common.fdebenchkit.weights import LATENCY_WORST_MS
 from ms.common.fdebenchkit.weights import ROBUSTNESS_WEIGHT_ADVERSARIAL as WEIGHT_ADVERSARIAL
 from ms.common.fdebenchkit.weights import ROBUSTNESS_WEIGHT_API_RESILIENCE as WEIGHT_API_RESILIENCE
 from ms.common.fdebenchkit.weights import TIER1_WEIGHT_EFFICIENCY as WEIGHT_EFFICIENCY
 from ms.common.fdebenchkit.weights import TIER1_WEIGHT_RESOLUTION as WEIGHT_RESOLUTION
 from ms.common.fdebenchkit.weights import TIER1_WEIGHT_ROBUSTNESS as WEIGHT_ROBUSTNESS
+from ms.common.fdebenchkit.weights import compute_latency_score
+from ms.common.models.base import FrozenBaseModel
 
 try:
     from opentelemetry import trace as _otel_trace

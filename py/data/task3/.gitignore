@@ -12,4 +12,3 @@
 # could expose them by accident.
 hidden_*_mock_responses.json
 hidden_eval_*.json
-

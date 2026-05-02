@@ -273,9 +273,7 @@ def score_tool_selection(
                 continue
             # Iterate primaries by descending credit_factor so the best
             # substitution wins when a single alt could satisfy multiple primaries.
-            for primary, credit_factor in sorted(
-                primary_map.items(), key=lambda item: item[1], reverse=True
-            ):
+            for primary, credit_factor in sorted(primary_map.items(), key=lambda item: item[1], reverse=True):
                 deficit = primary_deficits.get(primary, 0)
                 if deficit <= 0:
                     continue

@@ -92,6 +92,7 @@ ROBUSTNESS_WEIGHT_API_RESILIENCE = 0.40
 # affect judge views, not the participant scoreboard, and importing the
 # tier2.rubric module here would pull in agentkit unnecessarily.
 
+
 def _normalize_linear(value: float, best: float, worst: float) -> float:
     """Linearly normalize a value between best (1.0) and worst (0.0).
 
