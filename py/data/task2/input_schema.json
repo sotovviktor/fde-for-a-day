@@ -15,14 +15,14 @@
         },
         "content": {
             "type": "string",
-            "description": "Base64-encoded document image."
+            "description": "Relative path to the document image file (e.g., `images/DOC-OCR-0869.png`), resolved against the directory containing this `public_eval_50.json` file."
         },
         "content_format": {
             "type": "string",
             "enum": [
-                "image_base64"
+                "image_path"
             ],
-            "description": "Format of the content field."
+            "description": "Format of the content field. Always `image_path` for the public eval; the hidden eval may use other formats."
         },
         "json_schema": {
             "type": [
