@@ -1,8 +1,14 @@
 # Be a Microsoft FDE for a Day
 
-The FDE Hackathon. Watch the intro first, then read the rest.
+<p align="center">Three real customer problems. One API. Score yourself with FDEBench.</p>
 
-[<img src="https://img.youtube.com/vi/Lp6fq74zYBY/hqdefault.jpg" width="480" alt="Intro video">](https://youtu.be/Lp6fq74zYBY)
+<p align="center">
+  <a href="https://youtu.be/Lp6fq74zYBY">
+    <img src="https://img.youtube.com/vi/Lp6fq74zYBY/maxresdefault.jpg" alt="Be a Microsoft FDE for a Day — watch the intro" width="720">
+  </a>
+</p>
+
+<p align="center"><sub>▶ 2-minute cold open from the Delta team. Watch this first.</sub></p>
 
 ## Overview
 
