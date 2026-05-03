@@ -418,6 +418,25 @@ async def main() -> None:
 
     # Start mock tool service if Task 3 is included
     if any(k == "orchestrate" for k in task_keys):
+        # Task 3 requires the mock service running locally on
+        # 127.0.0.1:9090. Tool endpoints in each scenario are rewritten to
+        # point at that local URL, then sent in the request body to the
+        # candidate's /orchestrate endpoint. A *remote* (e.g. cloud-deployed)
+        # endpoint cannot reach the host running this harness, so every tool
+        # call will fail and scores will collapse to ~0. Score Task 3 only
+        # against a locally-running solution.
+        from urllib.parse import urlparse  # noqa: PLC0415
+
+        host = (urlparse(args.endpoint).hostname or "").lower()
+        if host not in {"localhost", "127.0.0.1", "::1", "0.0.0.0"}:
+            logger.warning(
+                "Task 3 against non-local endpoint (%s) will likely score ~0: "
+                "tool endpoints resolve to http://127.0.0.1:9090 which the "
+                "remote server cannot reach. Run the participant solution "
+                "locally for Task 3, or omit --task orchestrate when scoring "
+                "a deployed endpoint.",
+                args.endpoint,
+            )
         mock_proc = _start_mock_service()
 
     logger.info("Endpoint: %s", args.endpoint)

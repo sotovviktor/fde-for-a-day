@@ -45,6 +45,16 @@ python run_eval.py \
 
 For Task 3 (orchestration), the harness automatically starts a mock tool service on port 9090 that serves deterministic tool responses. Your `/orchestrate` endpoint can call these tools via HTTP during evaluation. See `py/apps/eval/mock_tool_service.py` for details.
 
+> **Task 3 cannot be scored against a remote endpoint.** The harness rewrites
+> every tool endpoint in the scenario to `http://127.0.0.1:9090/...` (the local
+> mock service) and POSTs that to your `/orchestrate` URL. A cloud-deployed
+> server cannot reach `127.0.0.1` on your laptop, so every tool call fails and
+> the score collapses to ~0. Always run `--task orchestrate` against a local
+> server (e.g. `--endpoint http://localhost:8000`). When scoring a deployed
+> endpoint, omit `orchestrate` and run only `--task triage` and `--task extract`.
+> The platform-side hidden eval bypasses this entirely — its mock service runs
+> in-cluster and tool URLs resolve normally.
+
 > **T3 local scores are calibration-only.** The shipped
 > `py/data/task3/public_eval_50_mock_responses.json` is the deterministic
 > answer key for the 50 public scenarios; the local mock service replays
