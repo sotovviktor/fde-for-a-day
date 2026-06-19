@@ -1,2758 +1,2758 @@
 {
-  "TASK-0006": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0006",
-        "name": "Tailspin Toys",
-        "tier": "starter"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0006",
-        "plan": "none",
-        "status": "inactive"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0024": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0024-0",
-            "name": "Datum Corp Div-0"
-          },
-          {
-            "account_id": "ACC-0024-1",
-            "name": "Datum Corp Div-1"
-          },
-          {
-            "account_id": "ACC-0024-2",
-            "name": "Datum Corp Div-2"
-          },
-          {
-            "account_id": "ACC-0024-3",
-            "name": "Datum Corp Div-3"
-          },
-          {
-            "account_id": "ACC-0024-4",
-            "name": "Datum Corp Div-4"
-          }
-        ],
-        "total": 5
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0024-0",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0024-1",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0024-2",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0024-3",
-        "plan": "none",
-        "status": "expired"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 4,
-      "response_body": {
-        "account_id": "ACC-0024-4",
-        "plan": "none",
-        "status": "churned"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0048": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0048-0",
-            "name": "Southridge Video"
-          },
-          {
-            "account_id": "ACC-0048-1",
-            "name": "Bellows College"
-          },
-          {
-            "account_id": "ACC-0048-2",
-            "name": "Northwind Traders"
-          },
-          {
-            "account_id": "ACC-0048-3",
-            "name": "Alpine Ski House"
-          },
-          {
-            "account_id": "ACC-0048-4",
-            "name": "Bellows College"
-          },
-          {
-            "account_id": "ACC-0048-5",
-            "name": "Bellows College"
-          }
-        ],
-        "total": 6
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0048-0",
-        "days_to_renewal": 169,
-        "renewal_date": "2026-11-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0048-1",
-        "days_to_renewal": 106,
-        "renewal_date": "2026-09-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0048-2",
-        "days_to_renewal": 8,
-        "renewal_date": "2026-06-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0048-3",
-        "days_to_renewal": 165,
-        "renewal_date": "2026-11-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 4,
-      "response_body": {
-        "account_id": "ACC-0048-4",
-        "days_to_renewal": 49,
-        "renewal_date": "2026-07-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 5,
-      "response_body": {
-        "account_id": "ACC-0048-5",
-        "days_to_renewal": 57,
-        "renewal_date": "2026-07-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0070": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0070",
-        "name": "Trey Research",
-        "tier": "professional"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0070",
-        "plan": "professional",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-12T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    }
-  ],
-  "TASK-0073": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0073-0",
-            "name": "Wingtip Solutions"
-          },
-          {
-            "account_id": "ACC-0073-1",
-            "name": "A. Datum Technology"
-          }
-        ],
-        "total": 2
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0073-0",
-        "days_to_renewal": 8,
-        "renewal_date": "2026-06-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0073-1",
-        "days_to_renewal": 10,
-        "renewal_date": "2026-06-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0098": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0098-0",
-            "name": "Northwind Traders"
-          },
-          {
-            "account_id": "ACC-0098-1",
-            "name": "Consolidated Messenger"
-          },
-          {
-            "account_id": "ACC-0098-2",
-            "name": "Nod Publishers"
-          },
-          {
-            "account_id": "ACC-0098-3",
-            "name": "Adatum Corp"
-          },
-          {
-            "account_id": "ACC-0098-4",
-            "name": "Fabrikam Inc"
-          }
-        ],
-        "total": 5
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0098-0",
-        "days_to_renewal": 81,
-        "renewal_date": "2026-08-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0098-1",
-        "days_to_renewal": 7,
-        "renewal_date": "2026-06-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0098-2",
-        "days_to_renewal": 78,
-        "renewal_date": "2026-08-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0098-3",
-        "days_to_renewal": 51,
-        "renewal_date": "2026-07-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 4,
-      "response_body": {
-        "account_id": "ACC-0098-4",
-        "days_to_renewal": 177,
-        "renewal_date": "2026-11-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0152": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 61,
-        "sku": "Sensor-B200",
-        "unit": "units",
-        "warehouse": "EU-CENTRAL"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "quantity": 9,
-        "sku": "Sensor-B200",
-        "unit": "units",
-        "warehouse": "APAC-SOUTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "quantity": 46,
-        "sku": "Sensor-B200",
-        "unit": "units",
-        "warehouse": "US-WEST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    }
-  ],
-  "TASK-0162": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0162",
-        "name": "Blue Yonder Airlines",
-        "tier": "starter"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0162",
-        "plan": "starter",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-12T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    }
-  ],
-  "TASK-0185": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0185",
-        "annual_spend": 16322,
-        "name": "Bellows College",
-        "tier": "professional",
-        "usage_level": "medium"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0185",
-        "auto_renew": false,
-        "plan": "professional",
-        "renewal_date": "2026-05-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0192": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0192-0",
-            "name": "Alpine Ski House Div-0"
-          },
-          {
-            "account_id": "ACC-0192-1",
-            "name": "Alpine Ski House Div-1"
-          },
-          {
-            "account_id": "ACC-0192-2",
-            "name": "Alpine Ski House Div-2"
-          },
-          {
-            "account_id": "ACC-0192-3",
-            "name": "Alpine Ski House Div-3"
-          },
-          {
-            "account_id": "ACC-0192-4",
-            "name": "Alpine Ski House Div-4"
-          },
-          {
-            "account_id": "ACC-0192-5",
-            "name": "Alpine Ski House Div-5"
-          }
-        ],
-        "total": 6
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0192-0",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0192-1",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0192-2",
-        "plan": "none",
-        "status": "expired"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0192-3",
-        "plan": "none",
-        "status": "expired"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 4,
-      "response_body": {
-        "account_id": "ACC-0192-4",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 5,
-      "response_body": {
-        "account_id": "ACC-0192-5",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0204": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0204",
-        "name": "Woodgrove Bank",
-        "tier": "free"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0204",
-        "plan": "free",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-12T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    }
-  ],
-  "TASK-0208": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0208-0",
-            "name": "Graphic Design Institute Div-0"
-          },
-          {
-            "account_id": "ACC-0208-1",
-            "name": "Graphic Design Institute Div-1"
-          },
-          {
-            "account_id": "ACC-0208-2",
-            "name": "Graphic Design Institute Div-2"
-          },
-          {
-            "account_id": "ACC-0208-3",
-            "name": "Graphic Design Institute Div-3"
-          }
-        ],
-        "total": 4
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0208-0",
-        "plan": "none",
-        "status": "expired"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0208-1",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0208-2",
-        "plan": "none",
-        "status": "churned"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0208-3",
-        "plan": "none",
-        "status": "expired"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0211": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0211",
-        "annual_spend": 58856,
-        "name": "Bellows College",
-        "tier": "professional",
-        "usage_level": "low"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0211",
-        "auto_renew": false,
-        "plan": "professional",
-        "renewal_date": "2026-05-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0214": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 58,
-        "sku": "Cable-D400",
-        "unit": "units",
-        "warehouse": "US-WEST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "quantity": 6,
-        "sku": "Cable-D400",
-        "unit": "units",
-        "warehouse": "US-EAST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    }
-  ],
-  "TASK-0220": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0220-0",
-            "name": "Adatum Corp"
-          },
-          {
-            "account_id": "ACC-0220-1",
-            "name": "WingTip Toys"
-          },
-          {
-            "account_id": "ACC-0220-2",
-            "name": "Fourth Coffee"
-          }
-        ],
-        "total": 3
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0220-0",
-        "days_to_renewal": 157,
-        "renewal_date": "2026-11-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0220-1",
-        "days_to_renewal": 12,
-        "renewal_date": "2026-06-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0220-2",
-        "days_to_renewal": 46,
-        "renewal_date": "2026-07-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0233": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 92,
-        "sku": "Valve-G700",
-        "status": "minor",
-        "warehouse": "US-WEST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "quantity": 20,
-        "sku": "Valve-G700",
-        "status": "degraded",
-        "warehouse": "US-EAST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "quantity": 53,
-        "sku": "Valve-G700",
-        "status": "degraded",
-        "warehouse": "APAC-SOUTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    }
-  ],
-  "TASK-0234": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0234-0",
-            "name": "Northwind Traders"
-          },
-          {
-            "account_id": "ACC-0234-1",
-            "name": "Tailspin Toys"
-          },
-          {
-            "account_id": "ACC-0234-2",
-            "name": "Adatum Corp"
-          },
-          {
-            "account_id": "ACC-0234-3",
-            "name": "Lamna Healthcare"
-          },
-          {
-            "account_id": "ACC-0234-4",
-            "name": "Contoso Ltd"
-          }
-        ],
-        "total": 5
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0234-0",
-        "days_to_renewal": 170,
-        "renewal_date": "2026-11-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0234-1",
-        "days_to_renewal": 163,
-        "renewal_date": "2026-11-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0234-2",
-        "days_to_renewal": 124,
-        "renewal_date": "2026-10-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0234-3",
-        "days_to_renewal": 180,
-        "renewal_date": "2026-12-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 4,
-      "response_body": {
-        "account_id": "ACC-0234-4",
-        "days_to_renewal": 137,
-        "renewal_date": "2026-10-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0244": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 3,
-        "sku": "Valve-G700",
-        "status": "degraded",
-        "warehouse": "LATAM-NORTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    }
-  ],
-  "TASK-0247": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 35,
-        "sku": "Valve-G700",
-        "status": "service_down",
-        "warehouse": "APAC-SOUTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    }
-  ],
-  "TASK-0250": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 228,
-        "sku": "Motor-J100",
-        "unit": "units",
-        "warehouse": "US-EAST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "quantity": 123,
-        "sku": "Motor-J100",
-        "unit": "units",
-        "warehouse": "LATAM-NORTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "quantity": 124,
-        "sku": "Motor-J100",
-        "unit": "units",
-        "warehouse": "EU-CENTRAL"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "quantity": 20,
-        "sku": "Motor-J100",
-        "unit": "units",
-        "warehouse": "US-WEST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    }
-  ],
-  "TASK-0260": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0260",
-        "name": "Tailspin Toys",
-        "tier": "enterprise"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0260",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-11T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    }
-  ],
-  "TASK-0272": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0272",
-        "name": "Southridge Video",
-        "tier": "enterprise"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0272",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-11T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    }
-  ],
-  "TASK-0297": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0297",
-        "annual_spend": 42957,
-        "name": "Tailspin Toys",
-        "tier": "enterprise",
-        "usage_level": "high"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0297",
-        "auto_renew": true,
-        "plan": "enterprise",
-        "renewal_date": "2026-05-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0298": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 8,
-        "sku": "Widget-A100",
-        "unit": "units",
-        "warehouse": "US-EAST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "quantity": 4,
-        "sku": "Widget-A100",
-        "unit": "units",
-        "warehouse": "EU-CENTRAL"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    }
-  ],
-  "TASK-0309": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0309",
-        "annual_spend": 12956,
-        "name": "Woodgrove Bank",
-        "tier": "starter",
-        "usage_level": "medium"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0309",
-        "auto_renew": false,
-        "plan": "starter",
-        "renewal_date": "2026-05-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0311": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0311",
-        "name": "Humongous Insurance",
-        "tier": "starter"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0311",
-        "plan": "starter",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-12T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    }
-  ],
-  "TASK-0315": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0315",
-        "name": "Blue Yonder Airlines",
-        "tier": "enterprise"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0315",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-12T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    }
-  ],
-  "TASK-0319": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0319-0",
-            "name": "Graphic Design Institute"
-          },
-          {
-            "account_id": "ACC-0319-1",
-            "name": "Datum Corp"
-          },
-          {
-            "account_id": "ACC-0319-2",
-            "name": "Lamna Healthcare"
-          },
-          {
-            "account_id": "ACC-0319-3",
-            "name": "Graphic Design Institute"
-          }
-        ],
-        "total": 4
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0319-0",
-        "days_to_renewal": 142,
-        "renewal_date": "2026-10-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0319-1",
-        "days_to_renewal": 157,
-        "renewal_date": "2026-11-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0319-2",
-        "days_to_renewal": -4,
-        "renewal_date": "2026-05-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0319-3",
-        "days_to_renewal": 68,
-        "renewal_date": "2026-08-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0324": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0324",
-        "name": "Munson's Pickles",
-        "tier": "professional"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0324",
-        "plan": "none",
-        "status": "inactive"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0332": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 14,
-        "sku": "Filter-H800",
-        "status": "minor",
-        "warehouse": "APAC-SOUTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "quantity": 99,
-        "sku": "Filter-H800",
-        "status": "degraded",
-        "warehouse": "US-EAST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "quantity": 89,
-        "sku": "Filter-H800",
-        "status": "minor",
-        "warehouse": "EU-CENTRAL"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    }
-  ],
-  "TASK-0338": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0338",
-        "name": "Humongous Insurance",
-        "tier": "starter"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0338",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-11T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    }
-  ],
-  "TASK-0340": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0340-0",
-            "name": "Fourth Coffee"
-          },
-          {
-            "account_id": "ACC-0340-1",
-            "name": "Graphic Design Institute"
-          }
-        ],
-        "total": 2
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0340-0",
-        "days_to_renewal": 133,
-        "renewal_date": "2026-10-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0340-1",
-        "days_to_renewal": 153,
-        "renewal_date": "2026-11-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0341": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0341",
-        "name": "Lamna Healthcare",
-        "tier": "starter"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0341",
-        "plan": "starter",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-12T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    }
-  ],
-  "TASK-0346": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0346-0",
-            "name": "Woodgrove Bank Div-0"
-          },
-          {
-            "account_id": "ACC-0346-1",
-            "name": "Woodgrove Bank Div-1"
-          },
-          {
-            "account_id": "ACC-0346-2",
-            "name": "Woodgrove Bank Div-2"
-          }
-        ],
-        "total": 3
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0346-0",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0346-1",
-        "plan": "none",
-        "status": "expired"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0346-2",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0378": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0378-0",
-            "name": "VanArsdel Ltd Div-0"
-          },
-          {
-            "account_id": "ACC-0378-1",
-            "name": "VanArsdel Ltd Div-1"
-          },
-          {
-            "account_id": "ACC-0378-2",
-            "name": "VanArsdel Ltd Div-2"
-          },
-          {
-            "account_id": "ACC-0378-3",
-            "name": "VanArsdel Ltd Div-3"
-          }
-        ],
-        "total": 4
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0378-0",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0378-1",
-        "plan": "none",
-        "status": "expired"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0378-2",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0378-3",
-        "plan": "none",
-        "status": "churned"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    }
-  ],
-  "TASK-0388": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0388-0",
-            "name": "Southridge Video Div-0"
-          },
-          {
-            "account_id": "ACC-0388-1",
-            "name": "Southridge Video Div-1"
-          },
-          {
-            "account_id": "ACC-0388-2",
-            "name": "Southridge Video Div-2"
-          },
-          {
-            "account_id": "ACC-0388-3",
-            "name": "Southridge Video Div-3"
-          },
-          {
-            "account_id": "ACC-0388-4",
-            "name": "Southridge Video Div-4"
-          },
-          {
-            "account_id": "ACC-0388-5",
-            "name": "Southridge Video Div-5"
-          },
-          {
-            "account_id": "ACC-0388-6",
-            "name": "Southridge Video Div-6"
-          }
-        ],
-        "total": 7
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0388-0",
-        "plan": "none",
-        "status": "pending"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0388-1",
-        "plan": "none",
-        "status": "churned"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0388-2",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0388-3",
-        "plan": "enterprise",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 4,
-      "response_body": {
-        "account_id": "ACC-0388-4",
-        "plan": "none",
-        "status": "churned"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 5,
-      "response_body": {
-        "error": "service unavailable"
-      },
-      "status_code": 500,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 6,
-      "response_body": {
-        "account_id": "ACC-0388-6",
-        "plan": "none",
-        "status": "churned"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0425": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0425",
-        "name": "Relecloud",
-        "tier": "enterprise"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0425",
-        "plan": "none",
-        "status": "pending"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0435": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 33,
-        "sku": "Board-E500",
-        "unit": "units",
-        "warehouse": "APAC-SOUTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "error": "rate limited",
-        "retry_after": 5
-      },
-      "status_code": 429,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0444": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0444",
-        "name": "Contoso Ltd",
-        "tier": "starter"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0444",
-        "plan": "starter",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-12T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0445": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0445",
-        "name": "Consolidated Messenger",
-        "tier": "free"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0445",
-        "plan": "free",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "available_slots": [
-          "2026-04-10T10:00",
-          "2026-04-12T14:00"
-        ]
-      },
-      "status_code": 200,
-      "tool_name": "calendar_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0456": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0456",
-        "annual_spend": 19938,
-        "name": "Tailspin Toys",
-        "tier": "professional",
-        "usage_level": "low"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0456",
-        "auto_renew": true,
-        "plan": "professional",
-        "renewal_date": "2026-05-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0458": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 82,
-        "sku": "Filter-H800",
-        "status": "service_down",
-        "warehouse": "APAC-SOUTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "quantity": 46,
-        "sku": "Filter-H800",
-        "status": "service_down",
-        "warehouse": "US-EAST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "quantity": 42,
-        "sku": "Filter-H800",
-        "status": "service_down",
-        "warehouse": "LATAM-NORTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0460": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0460-0",
-            "name": "Nod Publishers"
-          },
-          {
-            "account_id": "ACC-0460-1",
-            "name": "Fabrikam Inc"
-          },
-          {
-            "account_id": "ACC-0460-2",
-            "name": "A. Datum Technology"
-          },
-          {
-            "account_id": "ACC-0460-3",
-            "name": "Litware Inc"
-          },
-          {
-            "account_id": "ACC-0460-4",
-            "name": "Contoso Ltd"
-          },
-          {
-            "account_id": "ACC-0460-5",
-            "name": "Tailspin Toys"
-          }
-        ],
-        "total": 6
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0460-0",
-        "days_to_renewal": 11,
-        "renewal_date": "2026-06-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0460-1",
-        "days_to_renewal": 76,
-        "renewal_date": "2026-08-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0460-2",
-        "days_to_renewal": 70,
-        "renewal_date": "2026-08-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0460-3",
-        "days_to_renewal": 92,
-        "renewal_date": "2026-09-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 4,
-      "response_body": {
-        "account_id": "ACC-0460-4",
-        "days_to_renewal": 32,
-        "renewal_date": "2026-07-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 5,
-      "response_body": {
-        "account_id": "ACC-0460-5",
-        "days_to_renewal": 101,
-        "renewal_date": "2026-09-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0487": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0487",
-        "name": "Tailspin Toys",
-        "tier": "professional"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0487",
-        "plan": "none",
-        "status": "pending"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0497": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0497",
-        "annual_spend": 13503,
-        "name": "Southridge Video",
-        "tier": "starter",
-        "usage_level": "low"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0497",
-        "auto_renew": true,
-        "plan": "starter",
-        "renewal_date": "2026-05-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0510": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0510-0",
-            "name": "WingTip Toys"
-          },
-          {
-            "account_id": "ACC-0510-1",
-            "name": "Lucerne Publishing"
-          },
-          {
-            "account_id": "ACC-0510-2",
-            "name": "Blue Yonder Airlines"
-          },
-          {
-            "account_id": "ACC-0510-3",
-            "name": "Northwind Traders"
-          },
-          {
-            "account_id": "ACC-0510-4",
-            "name": "Relecloud"
-          }
-        ],
-        "total": 5
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0510-0",
-        "days_to_renewal": 30,
-        "renewal_date": "2026-07-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "account_id": "ACC-0510-1",
-        "days_to_renewal": 60,
-        "renewal_date": "2026-08-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0510-2",
-        "days_to_renewal": 150,
-        "renewal_date": "2026-11-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0510-3",
-        "days_to_renewal": 127,
-        "renewal_date": "2026-10-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 4,
-      "response_body": {
-        "account_id": "ACC-0510-4",
-        "days_to_renewal": 64,
-        "renewal_date": "2026-08-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0512": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "accounts": [
-          {
-            "account_id": "ACC-0512-0",
-            "name": "Adatum Corp Div-0"
-          },
-          {
-            "account_id": "ACC-0512-1",
-            "name": "Adatum Corp Div-1"
-          },
-          {
-            "account_id": "ACC-0512-2",
-            "name": "Adatum Corp Div-2"
-          },
-          {
-            "account_id": "ACC-0512-3",
-            "name": "Adatum Corp Div-3"
-          }
-        ],
-        "total": 4
-      },
-      "status_code": 200,
-      "tool_name": "crm_search"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0512-0",
-        "plan": "none",
-        "status": "pending"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "error": "service unavailable"
-      },
-      "status_code": 500,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "account_id": "ACC-0512-2",
-        "plan": "none",
-        "status": "pending"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "account_id": "ACC-0512-3",
-        "plan": "none",
-        "status": "churned"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0513": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 5,
-        "sku": "Sensor-B200",
-        "unit": "units",
-        "warehouse": "EU-CENTRAL"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "quantity": 6,
-        "sku": "Sensor-B200",
-        "unit": "units",
-        "warehouse": "US-WEST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "quantity": 22,
-        "sku": "Sensor-B200",
-        "unit": "units",
-        "warehouse": "APAC-SOUTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "quantity": 1,
-        "sku": "Sensor-B200",
-        "unit": "units",
-        "warehouse": "LATAM-NORTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0528": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "quantity": 62,
-        "sku": "Valve-G700",
-        "status": "service_down",
-        "warehouse": "EU-CENTRAL"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "quantity": 0,
-        "sku": "Valve-G700",
-        "status": "service_down",
-        "warehouse": "US-EAST"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "quantity": 12,
-        "sku": "Valve-G700",
-        "status": "service_down",
-        "warehouse": "APAC-SOUTH"
-      },
-      "status_code": 200,
-      "tool_name": "inventory_query"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ],
-  "TASK-0536": [
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0536",
-        "annual_spend": 13476,
-        "name": "Alpine Ski House",
-        "tier": "starter",
-        "usage_level": "low"
-      },
-      "status_code": 200,
-      "tool_name": "crm_get_account"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "account_id": "ACC-0536",
-        "auto_renew": false,
-        "plan": "starter",
-        "renewal_date": "2026-05-15",
-        "status": "active"
-      },
-      "status_code": 200,
-      "tool_name": "subscription_check"
-    },
-    {
-      "call_index": 0,
-      "response_body": {
-        "action": "exception_path_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 1,
-      "response_body": {
-        "action": "ops_escalation_recorded",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 2,
-      "response_body": {
-        "action": "escalation_receipt_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    },
-    {
-      "call_index": 3,
-      "response_body": {
-        "action": "stakeholder_summary_logged",
-        "status": "logged"
-      },
-      "status_code": 200,
-      "tool_name": "audit_log"
-    }
-  ]
+    "TASK-0006": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0006",
+                "name": "Tailspin Toys",
+                "tier": "starter"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0006",
+                "plan": "none",
+                "status": "inactive"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0024": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0024-0",
+                        "name": "Datum Corp Div-0"
+                    },
+                    {
+                        "account_id": "ACC-0024-1",
+                        "name": "Datum Corp Div-1"
+                    },
+                    {
+                        "account_id": "ACC-0024-2",
+                        "name": "Datum Corp Div-2"
+                    },
+                    {
+                        "account_id": "ACC-0024-3",
+                        "name": "Datum Corp Div-3"
+                    },
+                    {
+                        "account_id": "ACC-0024-4",
+                        "name": "Datum Corp Div-4"
+                    }
+                ],
+                "total": 5
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0024-0",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0024-1",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0024-2",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0024-3",
+                "plan": "none",
+                "status": "expired"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 4,
+            "response_body": {
+                "account_id": "ACC-0024-4",
+                "plan": "none",
+                "status": "churned"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0048": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0048-0",
+                        "name": "Southridge Video"
+                    },
+                    {
+                        "account_id": "ACC-0048-1",
+                        "name": "Bellows College"
+                    },
+                    {
+                        "account_id": "ACC-0048-2",
+                        "name": "Northwind Traders"
+                    },
+                    {
+                        "account_id": "ACC-0048-3",
+                        "name": "Alpine Ski House"
+                    },
+                    {
+                        "account_id": "ACC-0048-4",
+                        "name": "Bellows College"
+                    },
+                    {
+                        "account_id": "ACC-0048-5",
+                        "name": "Bellows College"
+                    }
+                ],
+                "total": 6
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0048-0",
+                "days_to_renewal": 169,
+                "renewal_date": "2026-11-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0048-1",
+                "days_to_renewal": 106,
+                "renewal_date": "2026-09-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0048-2",
+                "days_to_renewal": 8,
+                "renewal_date": "2026-06-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0048-3",
+                "days_to_renewal": 165,
+                "renewal_date": "2026-11-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 4,
+            "response_body": {
+                "account_id": "ACC-0048-4",
+                "days_to_renewal": 49,
+                "renewal_date": "2026-07-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 5,
+            "response_body": {
+                "account_id": "ACC-0048-5",
+                "days_to_renewal": 57,
+                "renewal_date": "2026-07-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0070": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0070",
+                "name": "Trey Research",
+                "tier": "professional"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0070",
+                "plan": "professional",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-12T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        }
+    ],
+    "TASK-0073": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0073-0",
+                        "name": "Wingtip Solutions"
+                    },
+                    {
+                        "account_id": "ACC-0073-1",
+                        "name": "A. Datum Technology"
+                    }
+                ],
+                "total": 2
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0073-0",
+                "days_to_renewal": 8,
+                "renewal_date": "2026-06-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0073-1",
+                "days_to_renewal": 10,
+                "renewal_date": "2026-06-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0098": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0098-0",
+                        "name": "Northwind Traders"
+                    },
+                    {
+                        "account_id": "ACC-0098-1",
+                        "name": "Consolidated Messenger"
+                    },
+                    {
+                        "account_id": "ACC-0098-2",
+                        "name": "Nod Publishers"
+                    },
+                    {
+                        "account_id": "ACC-0098-3",
+                        "name": "Adatum Corp"
+                    },
+                    {
+                        "account_id": "ACC-0098-4",
+                        "name": "Fabrikam Inc"
+                    }
+                ],
+                "total": 5
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0098-0",
+                "days_to_renewal": 81,
+                "renewal_date": "2026-08-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0098-1",
+                "days_to_renewal": 7,
+                "renewal_date": "2026-06-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0098-2",
+                "days_to_renewal": 78,
+                "renewal_date": "2026-08-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0098-3",
+                "days_to_renewal": 51,
+                "renewal_date": "2026-07-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 4,
+            "response_body": {
+                "account_id": "ACC-0098-4",
+                "days_to_renewal": 177,
+                "renewal_date": "2026-11-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0152": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 61,
+                "sku": "Sensor-B200",
+                "unit": "units",
+                "warehouse": "EU-CENTRAL"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "quantity": 9,
+                "sku": "Sensor-B200",
+                "unit": "units",
+                "warehouse": "APAC-SOUTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "quantity": 46,
+                "sku": "Sensor-B200",
+                "unit": "units",
+                "warehouse": "US-WEST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        }
+    ],
+    "TASK-0162": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0162",
+                "name": "Blue Yonder Airlines",
+                "tier": "starter"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0162",
+                "plan": "starter",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-12T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        }
+    ],
+    "TASK-0185": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0185",
+                "annual_spend": 16322,
+                "name": "Bellows College",
+                "tier": "professional",
+                "usage_level": "medium"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0185",
+                "auto_renew": false,
+                "plan": "professional",
+                "renewal_date": "2026-05-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0192": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0192-0",
+                        "name": "Alpine Ski House Div-0"
+                    },
+                    {
+                        "account_id": "ACC-0192-1",
+                        "name": "Alpine Ski House Div-1"
+                    },
+                    {
+                        "account_id": "ACC-0192-2",
+                        "name": "Alpine Ski House Div-2"
+                    },
+                    {
+                        "account_id": "ACC-0192-3",
+                        "name": "Alpine Ski House Div-3"
+                    },
+                    {
+                        "account_id": "ACC-0192-4",
+                        "name": "Alpine Ski House Div-4"
+                    },
+                    {
+                        "account_id": "ACC-0192-5",
+                        "name": "Alpine Ski House Div-5"
+                    }
+                ],
+                "total": 6
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0192-0",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0192-1",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0192-2",
+                "plan": "none",
+                "status": "expired"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0192-3",
+                "plan": "none",
+                "status": "expired"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 4,
+            "response_body": {
+                "account_id": "ACC-0192-4",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 5,
+            "response_body": {
+                "account_id": "ACC-0192-5",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0204": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0204",
+                "name": "Woodgrove Bank",
+                "tier": "free"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0204",
+                "plan": "free",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-12T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        }
+    ],
+    "TASK-0208": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0208-0",
+                        "name": "Graphic Design Institute Div-0"
+                    },
+                    {
+                        "account_id": "ACC-0208-1",
+                        "name": "Graphic Design Institute Div-1"
+                    },
+                    {
+                        "account_id": "ACC-0208-2",
+                        "name": "Graphic Design Institute Div-2"
+                    },
+                    {
+                        "account_id": "ACC-0208-3",
+                        "name": "Graphic Design Institute Div-3"
+                    }
+                ],
+                "total": 4
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0208-0",
+                "plan": "none",
+                "status": "expired"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0208-1",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0208-2",
+                "plan": "none",
+                "status": "churned"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0208-3",
+                "plan": "none",
+                "status": "expired"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0211": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0211",
+                "annual_spend": 58856,
+                "name": "Bellows College",
+                "tier": "professional",
+                "usage_level": "low"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0211",
+                "auto_renew": false,
+                "plan": "professional",
+                "renewal_date": "2026-05-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0214": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 58,
+                "sku": "Cable-D400",
+                "unit": "units",
+                "warehouse": "US-WEST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "quantity": 6,
+                "sku": "Cable-D400",
+                "unit": "units",
+                "warehouse": "US-EAST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        }
+    ],
+    "TASK-0220": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0220-0",
+                        "name": "Adatum Corp"
+                    },
+                    {
+                        "account_id": "ACC-0220-1",
+                        "name": "WingTip Toys"
+                    },
+                    {
+                        "account_id": "ACC-0220-2",
+                        "name": "Fourth Coffee"
+                    }
+                ],
+                "total": 3
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0220-0",
+                "days_to_renewal": 157,
+                "renewal_date": "2026-11-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0220-1",
+                "days_to_renewal": 12,
+                "renewal_date": "2026-06-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0220-2",
+                "days_to_renewal": 46,
+                "renewal_date": "2026-07-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0233": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 92,
+                "sku": "Valve-G700",
+                "status": "minor",
+                "warehouse": "US-WEST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "quantity": 20,
+                "sku": "Valve-G700",
+                "status": "degraded",
+                "warehouse": "US-EAST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "quantity": 53,
+                "sku": "Valve-G700",
+                "status": "degraded",
+                "warehouse": "APAC-SOUTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        }
+    ],
+    "TASK-0234": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0234-0",
+                        "name": "Northwind Traders"
+                    },
+                    {
+                        "account_id": "ACC-0234-1",
+                        "name": "Tailspin Toys"
+                    },
+                    {
+                        "account_id": "ACC-0234-2",
+                        "name": "Adatum Corp"
+                    },
+                    {
+                        "account_id": "ACC-0234-3",
+                        "name": "Lamna Healthcare"
+                    },
+                    {
+                        "account_id": "ACC-0234-4",
+                        "name": "Contoso Ltd"
+                    }
+                ],
+                "total": 5
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0234-0",
+                "days_to_renewal": 170,
+                "renewal_date": "2026-11-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0234-1",
+                "days_to_renewal": 163,
+                "renewal_date": "2026-11-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0234-2",
+                "days_to_renewal": 124,
+                "renewal_date": "2026-10-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0234-3",
+                "days_to_renewal": 180,
+                "renewal_date": "2026-12-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 4,
+            "response_body": {
+                "account_id": "ACC-0234-4",
+                "days_to_renewal": 137,
+                "renewal_date": "2026-10-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0244": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 3,
+                "sku": "Valve-G700",
+                "status": "degraded",
+                "warehouse": "LATAM-NORTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        }
+    ],
+    "TASK-0247": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 35,
+                "sku": "Valve-G700",
+                "status": "service_down",
+                "warehouse": "APAC-SOUTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        }
+    ],
+    "TASK-0250": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 228,
+                "sku": "Motor-J100",
+                "unit": "units",
+                "warehouse": "US-EAST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "quantity": 123,
+                "sku": "Motor-J100",
+                "unit": "units",
+                "warehouse": "LATAM-NORTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "quantity": 124,
+                "sku": "Motor-J100",
+                "unit": "units",
+                "warehouse": "EU-CENTRAL"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "quantity": 20,
+                "sku": "Motor-J100",
+                "unit": "units",
+                "warehouse": "US-WEST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        }
+    ],
+    "TASK-0260": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0260",
+                "name": "Tailspin Toys",
+                "tier": "enterprise"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0260",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-11T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        }
+    ],
+    "TASK-0272": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0272",
+                "name": "Southridge Video",
+                "tier": "enterprise"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0272",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-11T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        }
+    ],
+    "TASK-0297": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0297",
+                "annual_spend": 42957,
+                "name": "Tailspin Toys",
+                "tier": "enterprise",
+                "usage_level": "high"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0297",
+                "auto_renew": true,
+                "plan": "enterprise",
+                "renewal_date": "2026-05-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0298": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 8,
+                "sku": "Widget-A100",
+                "unit": "units",
+                "warehouse": "US-EAST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "quantity": 4,
+                "sku": "Widget-A100",
+                "unit": "units",
+                "warehouse": "EU-CENTRAL"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        }
+    ],
+    "TASK-0309": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0309",
+                "annual_spend": 12956,
+                "name": "Woodgrove Bank",
+                "tier": "starter",
+                "usage_level": "medium"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0309",
+                "auto_renew": false,
+                "plan": "starter",
+                "renewal_date": "2026-05-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0311": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0311",
+                "name": "Humongous Insurance",
+                "tier": "starter"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0311",
+                "plan": "starter",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-12T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        }
+    ],
+    "TASK-0315": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0315",
+                "name": "Blue Yonder Airlines",
+                "tier": "enterprise"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0315",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-12T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        }
+    ],
+    "TASK-0319": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0319-0",
+                        "name": "Graphic Design Institute"
+                    },
+                    {
+                        "account_id": "ACC-0319-1",
+                        "name": "Datum Corp"
+                    },
+                    {
+                        "account_id": "ACC-0319-2",
+                        "name": "Lamna Healthcare"
+                    },
+                    {
+                        "account_id": "ACC-0319-3",
+                        "name": "Graphic Design Institute"
+                    }
+                ],
+                "total": 4
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0319-0",
+                "days_to_renewal": 142,
+                "renewal_date": "2026-10-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0319-1",
+                "days_to_renewal": 157,
+                "renewal_date": "2026-11-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0319-2",
+                "days_to_renewal": -4,
+                "renewal_date": "2026-05-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0319-3",
+                "days_to_renewal": 68,
+                "renewal_date": "2026-08-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0324": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0324",
+                "name": "Munson's Pickles",
+                "tier": "professional"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0324",
+                "plan": "none",
+                "status": "inactive"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0332": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 14,
+                "sku": "Filter-H800",
+                "status": "minor",
+                "warehouse": "APAC-SOUTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "quantity": 99,
+                "sku": "Filter-H800",
+                "status": "degraded",
+                "warehouse": "US-EAST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "quantity": 89,
+                "sku": "Filter-H800",
+                "status": "minor",
+                "warehouse": "EU-CENTRAL"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        }
+    ],
+    "TASK-0338": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0338",
+                "name": "Humongous Insurance",
+                "tier": "starter"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0338",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-11T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        }
+    ],
+    "TASK-0340": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0340-0",
+                        "name": "Fourth Coffee"
+                    },
+                    {
+                        "account_id": "ACC-0340-1",
+                        "name": "Graphic Design Institute"
+                    }
+                ],
+                "total": 2
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0340-0",
+                "days_to_renewal": 133,
+                "renewal_date": "2026-10-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0340-1",
+                "days_to_renewal": 153,
+                "renewal_date": "2026-11-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0341": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0341",
+                "name": "Lamna Healthcare",
+                "tier": "starter"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0341",
+                "plan": "starter",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-12T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        }
+    ],
+    "TASK-0346": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0346-0",
+                        "name": "Woodgrove Bank Div-0"
+                    },
+                    {
+                        "account_id": "ACC-0346-1",
+                        "name": "Woodgrove Bank Div-1"
+                    },
+                    {
+                        "account_id": "ACC-0346-2",
+                        "name": "Woodgrove Bank Div-2"
+                    }
+                ],
+                "total": 3
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0346-0",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0346-1",
+                "plan": "none",
+                "status": "expired"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0346-2",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0378": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0378-0",
+                        "name": "VanArsdel Ltd Div-0"
+                    },
+                    {
+                        "account_id": "ACC-0378-1",
+                        "name": "VanArsdel Ltd Div-1"
+                    },
+                    {
+                        "account_id": "ACC-0378-2",
+                        "name": "VanArsdel Ltd Div-2"
+                    },
+                    {
+                        "account_id": "ACC-0378-3",
+                        "name": "VanArsdel Ltd Div-3"
+                    }
+                ],
+                "total": 4
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0378-0",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0378-1",
+                "plan": "none",
+                "status": "expired"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0378-2",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0378-3",
+                "plan": "none",
+                "status": "churned"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        }
+    ],
+    "TASK-0388": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0388-0",
+                        "name": "Southridge Video Div-0"
+                    },
+                    {
+                        "account_id": "ACC-0388-1",
+                        "name": "Southridge Video Div-1"
+                    },
+                    {
+                        "account_id": "ACC-0388-2",
+                        "name": "Southridge Video Div-2"
+                    },
+                    {
+                        "account_id": "ACC-0388-3",
+                        "name": "Southridge Video Div-3"
+                    },
+                    {
+                        "account_id": "ACC-0388-4",
+                        "name": "Southridge Video Div-4"
+                    },
+                    {
+                        "account_id": "ACC-0388-5",
+                        "name": "Southridge Video Div-5"
+                    },
+                    {
+                        "account_id": "ACC-0388-6",
+                        "name": "Southridge Video Div-6"
+                    }
+                ],
+                "total": 7
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0388-0",
+                "plan": "none",
+                "status": "pending"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0388-1",
+                "plan": "none",
+                "status": "churned"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0388-2",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0388-3",
+                "plan": "enterprise",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 4,
+            "response_body": {
+                "account_id": "ACC-0388-4",
+                "plan": "none",
+                "status": "churned"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 5,
+            "response_body": {
+                "error": "service unavailable"
+            },
+            "status_code": 500,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 6,
+            "response_body": {
+                "account_id": "ACC-0388-6",
+                "plan": "none",
+                "status": "churned"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0425": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0425",
+                "name": "Relecloud",
+                "tier": "enterprise"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0425",
+                "plan": "none",
+                "status": "pending"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0435": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 33,
+                "sku": "Board-E500",
+                "unit": "units",
+                "warehouse": "APAC-SOUTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "error": "rate limited",
+                "retry_after": 5
+            },
+            "status_code": 429,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0444": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0444",
+                "name": "Contoso Ltd",
+                "tier": "starter"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0444",
+                "plan": "starter",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-12T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0445": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0445",
+                "name": "Consolidated Messenger",
+                "tier": "free"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0445",
+                "plan": "free",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "available_slots": [
+                    "2026-04-10T10:00",
+                    "2026-04-12T14:00"
+                ]
+            },
+            "status_code": 200,
+            "tool_name": "calendar_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0456": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0456",
+                "annual_spend": 19938,
+                "name": "Tailspin Toys",
+                "tier": "professional",
+                "usage_level": "low"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0456",
+                "auto_renew": true,
+                "plan": "professional",
+                "renewal_date": "2026-05-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0458": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 82,
+                "sku": "Filter-H800",
+                "status": "service_down",
+                "warehouse": "APAC-SOUTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "quantity": 46,
+                "sku": "Filter-H800",
+                "status": "service_down",
+                "warehouse": "US-EAST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "quantity": 42,
+                "sku": "Filter-H800",
+                "status": "service_down",
+                "warehouse": "LATAM-NORTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0460": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0460-0",
+                        "name": "Nod Publishers"
+                    },
+                    {
+                        "account_id": "ACC-0460-1",
+                        "name": "Fabrikam Inc"
+                    },
+                    {
+                        "account_id": "ACC-0460-2",
+                        "name": "A. Datum Technology"
+                    },
+                    {
+                        "account_id": "ACC-0460-3",
+                        "name": "Litware Inc"
+                    },
+                    {
+                        "account_id": "ACC-0460-4",
+                        "name": "Contoso Ltd"
+                    },
+                    {
+                        "account_id": "ACC-0460-5",
+                        "name": "Tailspin Toys"
+                    }
+                ],
+                "total": 6
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0460-0",
+                "days_to_renewal": 11,
+                "renewal_date": "2026-06-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0460-1",
+                "days_to_renewal": 76,
+                "renewal_date": "2026-08-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0460-2",
+                "days_to_renewal": 70,
+                "renewal_date": "2026-08-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0460-3",
+                "days_to_renewal": 92,
+                "renewal_date": "2026-09-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 4,
+            "response_body": {
+                "account_id": "ACC-0460-4",
+                "days_to_renewal": 32,
+                "renewal_date": "2026-07-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 5,
+            "response_body": {
+                "account_id": "ACC-0460-5",
+                "days_to_renewal": 101,
+                "renewal_date": "2026-09-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0487": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0487",
+                "name": "Tailspin Toys",
+                "tier": "professional"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0487",
+                "plan": "none",
+                "status": "pending"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0497": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0497",
+                "annual_spend": 13503,
+                "name": "Southridge Video",
+                "tier": "starter",
+                "usage_level": "low"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0497",
+                "auto_renew": true,
+                "plan": "starter",
+                "renewal_date": "2026-05-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0510": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0510-0",
+                        "name": "WingTip Toys"
+                    },
+                    {
+                        "account_id": "ACC-0510-1",
+                        "name": "Lucerne Publishing"
+                    },
+                    {
+                        "account_id": "ACC-0510-2",
+                        "name": "Blue Yonder Airlines"
+                    },
+                    {
+                        "account_id": "ACC-0510-3",
+                        "name": "Northwind Traders"
+                    },
+                    {
+                        "account_id": "ACC-0510-4",
+                        "name": "Relecloud"
+                    }
+                ],
+                "total": 5
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0510-0",
+                "days_to_renewal": 30,
+                "renewal_date": "2026-07-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "account_id": "ACC-0510-1",
+                "days_to_renewal": 60,
+                "renewal_date": "2026-08-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0510-2",
+                "days_to_renewal": 150,
+                "renewal_date": "2026-11-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0510-3",
+                "days_to_renewal": 127,
+                "renewal_date": "2026-10-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 4,
+            "response_body": {
+                "account_id": "ACC-0510-4",
+                "days_to_renewal": 64,
+                "renewal_date": "2026-08-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0512": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "accounts": [
+                    {
+                        "account_id": "ACC-0512-0",
+                        "name": "Adatum Corp Div-0"
+                    },
+                    {
+                        "account_id": "ACC-0512-1",
+                        "name": "Adatum Corp Div-1"
+                    },
+                    {
+                        "account_id": "ACC-0512-2",
+                        "name": "Adatum Corp Div-2"
+                    },
+                    {
+                        "account_id": "ACC-0512-3",
+                        "name": "Adatum Corp Div-3"
+                    }
+                ],
+                "total": 4
+            },
+            "status_code": 200,
+            "tool_name": "crm_search"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0512-0",
+                "plan": "none",
+                "status": "pending"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "error": "service unavailable"
+            },
+            "status_code": 500,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "account_id": "ACC-0512-2",
+                "plan": "none",
+                "status": "pending"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "account_id": "ACC-0512-3",
+                "plan": "none",
+                "status": "churned"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0513": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 5,
+                "sku": "Sensor-B200",
+                "unit": "units",
+                "warehouse": "EU-CENTRAL"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "quantity": 6,
+                "sku": "Sensor-B200",
+                "unit": "units",
+                "warehouse": "US-WEST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "quantity": 22,
+                "sku": "Sensor-B200",
+                "unit": "units",
+                "warehouse": "APAC-SOUTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "quantity": 1,
+                "sku": "Sensor-B200",
+                "unit": "units",
+                "warehouse": "LATAM-NORTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0528": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "quantity": 62,
+                "sku": "Valve-G700",
+                "status": "service_down",
+                "warehouse": "EU-CENTRAL"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "quantity": 0,
+                "sku": "Valve-G700",
+                "status": "service_down",
+                "warehouse": "US-EAST"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "quantity": 12,
+                "sku": "Valve-G700",
+                "status": "service_down",
+                "warehouse": "APAC-SOUTH"
+            },
+            "status_code": 200,
+            "tool_name": "inventory_query"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ],
+    "TASK-0536": [
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0536",
+                "annual_spend": 13476,
+                "name": "Alpine Ski House",
+                "tier": "starter",
+                "usage_level": "low"
+            },
+            "status_code": 200,
+            "tool_name": "crm_get_account"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "account_id": "ACC-0536",
+                "auto_renew": false,
+                "plan": "starter",
+                "renewal_date": "2026-05-15",
+                "status": "active"
+            },
+            "status_code": 200,
+            "tool_name": "subscription_check"
+        },
+        {
+            "call_index": 0,
+            "response_body": {
+                "action": "exception_path_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 1,
+            "response_body": {
+                "action": "ops_escalation_recorded",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 2,
+            "response_body": {
+                "action": "escalation_receipt_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        },
+        {
+            "call_index": 3,
+            "response_body": {
+                "action": "stakeholder_summary_logged",
+                "status": "logged"
+            },
+            "status_code": 200,
+            "tool_name": "audit_log"
+        }
+    ]
 }
