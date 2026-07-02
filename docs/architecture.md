@@ -46,13 +46,17 @@ internal failure each task also sets an error header (`X-Triage-Error`,
 ## Task 1 (Signal Triage): AI pipeline
 
 One LLM call per signal. The model runs in JSON-object mode and its reply is
-validated against the fixed `TriageResponse` schema, so it can only emit valid
-enum labels. The system prompt in `triage/prompt.yaml` is organized by scored
-dimension — category, team, priority, escalation, missing-information — each with
-its own rubric and tie-breaks. Six few-shot examples cover the cases that trip
-models up: a calm message that is really a P1 outage, a security escalation, an
-auto-reply that is "not a signal," and an abuse request that must be refused *and*
-escalated.
+validated against the fixed `TriageDecision` schema (the server injects
+`ticket_id` afterward), so it can only emit valid enum labels — with lenient
+before-validators that coerce near-misses instead of rejecting them. The system
+prompt in `triage/prompt.yaml` is organized by scored dimension — category, team,
+priority, escalation, missing-information — each with its own rubric and
+tie-breaks. It is **zero-shot**: earlier few-shot examples were removed because
+they made the small model rigid on adversarial inputs. To replace what they taught
+implicitly, the prompt states the output format explicitly (emit the bare
+`priority` code, copy enum strings verbatim), and the `TriageDecision`
+before-validators coerce a labelled reply such as `"P2 (Yellow Alert)"` back to
+`"P2"` — so a cosmetic model quirk can never turn a scored item into a 503.
 
 After the call, `triage/guardrails.py` enforces the invariants the model cannot
 be trusted to always get right:
@@ -87,12 +91,15 @@ request. Extraction returns a plain dict with the schema's keys, plus the
 
 ## Task 3 (Workflow Orchestration): AI pipeline
 
-Not a single upfront plan — a bounded **plan → execute → observe** loop, capped at
-4 rounds and 30 tool calls. Each round, the planner sees the goal, the available
+A bounded **plan → execute → observe** loop that resolves to **one planning call
+for the common case**. When every parameter is already known from the goal, the
+planner emits the whole workflow in a single batch and sets `workflow_complete`;
+the loop takes another round only for genuine discovery tails (search → check →
+act), and is capped at 3 planning rounds and 30 tool calls. Collapsing the typical
+workflow from four LLM round-trips to one is the main latency and throttling win
+(see the rate limiter below). Each round, the planner sees the goal, the available
 tools, the constraints, and every observation so far, then emits the next batch of
-tool calls plus a `workflow_complete` flag. The prompt pushes for the fewest
-rounds: if all parameters are already known, emit the whole workflow in one batch.
-Discovery workflows (search → check → act) use the loop.
+tool calls plus a `workflow_complete` flag.
 
 Execution is a hybrid. Consecutive calls to the *same* tool run concurrently via
 `asyncio.gather`; group boundaries preserve ordering between different tools, so
@@ -120,17 +127,19 @@ against a Pydantic model where one exists. This handles arbitrary per-request
 schemas (extraction) and keeps one code path for all three tasks. The cost: no
 API-level schema enforcement, so validation is our job.
 
-**Resilience is shared too.** Each call runs under a per-attempt timeout (10s by
-default, 18s for vision extraction) and is retried up to three times with
-exponential backoff, honoring an upstream ``Retry-After`` header when present;
-once the budget is exhausted the request surfaces as a 503.
-A bounded httpx connection pool (20 connections, 10 kept warm) caps outbound
-concurrency. Malformed HTTP or JSON is rejected at the edge —
-400 for bad JSON, 422 for schema errors, 415 for the wrong content type — which is
-what the resilience probes check. This holds everywhere in the eval run except one
-spot: `/extract` fails the 20-request `concurrent_burst` probe (two transient
-errors under load), which makes extraction the least robust task. It is the one
-open reliability gap — see [evals.md](evals.md).
+**Resilience is shared too.** All three endpoints share one Azure deployment and
+therefore one rate quota, so a **global token-bucket rate limiter** in the
+`AzureLLMClient` paces every request *start* — refilling at a fraction of the quota
+(800 of 1,000 RPM) and holding a small burst budget. The retry path is gated by the
+same bucket, so retries can't amplify a storm — the failure that sank the portal
+run (see *Local score vs. portal score* below). On top of it: a per-attempt timeout
+(10s default, 18s for vision), up to three retries with jittered exponential
+backoff honoring `Retry-After`, and a bounded httpx pool sized to the concurrency
+limit. Once the retry budget is exhausted the request surfaces as a 503. Malformed
+HTTP or JSON is rejected at the edge — 400 for bad JSON, 422 for schema errors, 415
+for the wrong content type. With the quota raised to 1,000 RPM and the limiter
+sized so a burst still clears within the probe window, a local run passes all seven
+resilience probes.
 
 **One inconsistency, stated plainly.** Extract and orchestrate return a scored
 200 fallback on internal failure (a `{document_id}` envelope; a `failed`
@@ -145,7 +154,7 @@ strings stored anywhere. One resource group holds:
 
 - **Azure Container Apps** running the container on external ingress (port 8000) with a `/health` probe, 1 CPU / 2 GiB, scaling 1–3 replicas.
 - **Azure Container Registry** (admin disabled), pulled via a user-assigned managed identity with `AcrPull`.
-- **Azure AI Foundry** (`AIServices`) with local auth disabled and a model deployment; the same identity holds `Cognitive Services OpenAI User`. The app authenticates with `DefaultAzureCredential`.
+- **Azure AI Foundry** (`AIServices`) with local auth disabled and a model deployment; the same identity holds `Cognitive Services OpenAI User`. The app authenticates with `DefaultAzureCredential`. The deployment quota was raised to 1,000 RPM to give the shared rate limiter headroom at hidden-set scale.
 - **Log Analytics** for container stdout/stderr.
 
 The image builds from the `py/` workspace root so the shared common libs are in
@@ -177,12 +186,13 @@ the latency points.
 - *The 503-vs-200 split above.* Consistent behavior would either fall back everywhere or fail loud everywhere; today it is split.
 - *Orchestration's `accounts_processed` is still a heuristic.* `constraints_satisfied`, `emails_skipped`, and `skip_reasons` are now populated from the planner's final self-report (with `constraints_satisfied` filtered to verbatim request constraints), but `accounts_processed` remains a fragile scrape of `account_id` parameters from the step trace.
 - *Domain rules as prose.* Orchestration's roles, templates, and channels live in the prompt, not in validated code, so they can drift and risk overfitting the public set.
-- *Schema coverage.* Extraction only normalizes top-level object-or-array schemas; anything more exotic silently degrades to schema-free mode, and there is no enum or required-field enforcement.
+- *Schema coverage.* Extraction now normalizes nested objects and arrays-of-objects (a property the model omits is emitted as `null` instead of vanishing), but an unparseable schema still degrades to passthrough mode, and there is no `enum` or `pattern` enforcement.
 - *Static team back-fill* in triage cannot express the documented gray areas (a security-dominant biometric issue, onboarding → Systems Engineering); that nuance lives only in the prompt.
 
-**What we'd change for production.** Chase the latency drag first — it caps
-efficiency on every task: trim round-trips and prompt size, and revisit the
-nano-only choice where P95 is worst. Then fix `/extract`'s behavior under
-concurrent load, make the failure contract consistent, harden `accounts_processed`
-into a real entity count, move the orchestration playbook into validated code, and
-widen schema coverage.
+**What we'd change for production.** The global rate limiter and the one-call
+orchestration path close the throttling gap that sank the portal run; the next
+frontier is latency — it still caps efficiency on every task: trim round-trips and
+prompt size, and revisit the nano-only choice where P95 is worst (vision extraction
+most of all). Then make the failure contract consistent, harden
+`accounts_processed` into a real entity count, move the orchestration playbook into
+validated code, and widen schema coverage.
