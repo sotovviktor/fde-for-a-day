@@ -60,7 +60,7 @@ deployment_capacity = 1000
 openai_api_version = "2024-10-21"
 
 min_replicas = 1
-max_replicas = 3
+max_replicas = 1
 
 registry_name = f"{name_prefix}acr".replace("-", "").lower()
 foundry_subdomain = f"{name_prefix}-foundry".lower()
