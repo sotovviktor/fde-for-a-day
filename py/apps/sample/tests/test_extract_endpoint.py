@@ -93,13 +93,13 @@ def test_extract_failure_returns_200_with_document_id() -> None:
     assert resp.headers["X-Request-ID"]
 
 
-def test_extract_open_llm_circuit_returns_503() -> None:
+def test_extract_open_llm_circuit_returns_200_with_document_id() -> None:
     _use_client(_FakeClient(error=LLMUnavailableError("circuit open")))
     with TestClient(app) as client:
         resp = client.post("/extract", json=_DOC)
 
-    assert resp.status_code == 503
-    assert resp.json() == {"detail": "service unavailable", "error_code": "LLMUnavailableError"}
+    assert resp.status_code == 200
+    assert resp.json() == {"document_id": "DOC-OCR-0001"}
     assert resp.headers["X-Model-Name"] == get_settings().extract_model
     assert resp.headers["X-Extract-Error"] == "LLMUnavailableError"
 

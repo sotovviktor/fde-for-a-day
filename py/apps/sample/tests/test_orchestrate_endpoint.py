@@ -124,13 +124,17 @@ def test_orchestrate_failure_returns_200_envelope() -> None:
     assert resp.headers["X-Request-ID"]
 
 
-def test_orchestrate_open_llm_circuit_returns_503() -> None:
+def test_orchestrate_open_llm_circuit_returns_200_envelope() -> None:
     _use_clients(_FakeLLM(error=LLMUnavailableError("circuit open")), _FakeTools())
     with TestClient(app) as client:
         resp = client.post("/orchestrate", json=_WORKFLOW)
 
-    assert resp.status_code == 503
-    assert resp.json() == {"detail": "service unavailable", "error_code": "LLMUnavailableError"}
+    # A scored fallback envelope beats a 503 (which the platform scores 0 on every dimension).
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["task_id"] == "TASK-0001"
+    assert body["status"] == "failed"
+    assert body["steps_executed"] == []
     assert resp.headers["X-Model-Name"] == get_settings().orchestrate_model
     assert resp.headers["X-Orchestrate-Error"] == "LLMUnavailableError"
 

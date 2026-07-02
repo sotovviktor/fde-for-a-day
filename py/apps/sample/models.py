@@ -77,6 +77,17 @@ class MissingInfo(str, Enum):
 _PRIORITY_CODE_RE = re.compile(r"[Pp]\s*([1-4])")
 _TRAILING_PARENTHETICAL_RE = re.compile(r"\s*\([^)]*\)\s*$")
 
+# The model occasionally writes a *team* name into the category field. Map it back to the
+# matching category.
+_TEAM_TO_CATEGORY: dict[str, str] = {
+    Team.IDENTITY.value: Category.ACCESS.value,
+    Team.SYSTEMS.value: Category.HULL.value,
+    Team.COMMS.value: Category.COMMS.value,
+    Team.SOFTWARE.value: Category.SOFTWARE.value,
+    Team.THREAT.value: Category.THREAT.value,
+    Team.TELEMETRY.value: Category.DATA.value,
+}
+
 
 # The model returns every field except ticket_id; the server injects ticket_id
 # from the request during guardrails. Validating raw model output against
@@ -101,10 +112,21 @@ class TriageDecision(FrozenBaseModel):
                 return f"P{match.group(1)}"
         return value
 
-    @field_validator("category", "assigned_team", mode="before")
+    @field_validator("category", mode="before")
+    @classmethod
+    def _coerce_category(cls, value: Any) -> Any:
+        """Strip a trailing "(...)" label; if the model put a *team* name in the category
+        field, map it back to the matching category so it still validates."""
+        if isinstance(value, str):
+            cleaned = _TRAILING_PARENTHETICAL_RE.sub("", value).strip()
+            if cleaned:
+                return _TEAM_TO_CATEGORY.get(cleaned, cleaned)
+        return value
+
+    @field_validator("assigned_team", mode="before")
     @classmethod
     def _strip_trailing_label(cls, value: Any) -> Any:
-        """Drop a trailing "(...)" annotation so a labelled enum still validates."""
+        """Drop a trailing "(...)" annotation so a labelled team still validates."""
         if isinstance(value, str):
             cleaned = _TRAILING_PARENTHETICAL_RE.sub("", value).strip()
             if cleaned:

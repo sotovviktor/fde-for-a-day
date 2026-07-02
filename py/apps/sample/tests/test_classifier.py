@@ -154,3 +154,60 @@ def test_triage_decision_coerces_labelled_enum_values() -> None:
     assert decision.priority == "P2"
     assert decision.category is Category.COMMS
     assert decision.assigned_team is Team.COMMS
+
+
+def test_triage_decision_maps_team_name_in_category_field() -> None:
+    """Deployed regression: the model wrote a *team* name into the category field.
+
+    That used to raise (a team value is not a valid Category) -> 503 -> score 0.
+    The before-validator maps it back to the matching category so it still validates.
+    """
+    decision = TriageDecision.model_validate(
+        {
+            "category": "Mission Software Operations",  # a Team value, not a Category
+            "priority": "P2",
+            "assigned_team": "Mission Software Operations",
+            "needs_escalation": True,
+            "missing_information": [],
+            "next_best_action": "Investigate the fault.",
+            "remediation_steps": ["Check logs."],
+        }
+    )
+    assert decision.category is Category.SOFTWARE
+    assert decision.assigned_team is Team.SOFTWARE
+
+
+async def test_classify_returns_safe_default_when_content_filter_persists(monkeypatch: MonkeyPatch) -> None:
+    """When even the clamped retry is blocked, return a safe default as a scored 200.
+
+    A blocked signal is almost always an injection/abuse attempt; surfacing a 503
+    would score 0 on every dimension, so we return a security-conscious default
+    (Not a Mission Signal, escalated) instead.
+    """
+    attempts = 0
+
+    async def fake_complete(
+        *, deployment: str, messages: object, response_format: object, max_completion_tokens: int
+    ) -> LLMResult:
+        nonlocal attempts
+        attempts += 1
+        raise LLMUnavailableError(
+            "LLM call failed after 3 attempts: Error code: 400 - {'code': 'content_filter', "
+            "'innererror': {'content_filter_result': {'jailbreak': {'detected': True, 'filtered': True}}}}"
+        )
+
+    client = AzureLLMClient(get_settings())
+    monkeypatch.setattr(client, "complete", fake_complete)
+
+    req = _make_request()
+    result = await classify(req, client, get_settings())
+    await client.aclose()
+
+    assert attempts == 2  # original call + one clamped retry, both blocked
+    assert result.output.ticket_id == req.ticket_id
+    assert result.output.category is Category.NOT_SIGNAL
+    assert result.output.assigned_team is Team.NONE
+    assert result.output.priority == "P4"
+    assert result.output.needs_escalation is True
+    assert result.prompt_tokens == 0
+    assert result.completion_tokens == 0

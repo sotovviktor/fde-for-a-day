@@ -109,6 +109,9 @@ async def run_endpoint[OutputT](
     except LLMUnavailableError as exc:
         logger.exception(log_message, log_id)
         error_code = _safe_header_value(type(exc).__name__)
+        if fallback is not None:
+            response.headers[error_header] = error_code
+            return fallback
         return JSONResponse(
             status_code=503,
             content={"detail": failure_detail, "error_code": error_code},

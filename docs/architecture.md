@@ -141,18 +141,17 @@ for the wrong content type. With the quota raised to 1,000 RPM and the limiter
 sized so a burst still clears within the probe window, a local run passes all seven
 resilience probes.
 
-**One inconsistency, stated plainly.** Extract and orchestrate return a scored
-200 fallback on internal failure (a `{document_id}` envelope; a `failed`
-workflow envelope). Triage instead returns **503**. Failing loud on triage avoids
-confidently mis-routing a safety-critical signal, but a non-200 forfeits that
-item's score. It is a defensible safety choice and a real cost — see tradeoffs.
+**Failure handling.** Extract and orchestrate return a scored 200 fallback on internal failure — including an exhausted retry budget or a 429 (`LLMUnavailableError`). Triage has no such envelope, so a transient failure still surfaces a **503** (the platform can retry it) rather than confidently mis-routing a safety-critical signal. The one exception: when Azure's content filter blocks a signal even after a clamped retry, triage returns a safe, security-conscious
+default (`Not a Mission Signal`, escalated) as a 200 — a blocked signal is almost
+always an injection/abuse attempt, which the rubric treats exactly that way, so a
+principled default scores better than a forfeited item. See tradeoffs.
 
 ## Infrastructure
 
 Deployed to Azure with Pulumi (Python), fully passwordless — no keys or connection
 strings stored anywhere. One resource group holds:
 
-- **Azure Container Apps** running the container on external ingress (port 8000) with a `/health` probe, 1 CPU / 2 GiB, scaling 1–3 replicas.
+- **Azure Container Apps** running the container on external ingress (port 8000) with a `/health` probe, 1 CPU / 2 GiB.
 - **Azure Container Registry** (admin disabled), pulled via a user-assigned managed identity with `AcrPull`.
 - **Azure AI Foundry** (`AIServices`) with local auth disabled and a model deployment; the same identity holds `Cognitive Services OpenAI User`. The app authenticates with `DefaultAzureCredential`. The deployment quota was raised to 1,000 RPM to give the shared rate limiter headroom at hidden-set scale.
 - **Log Analytics** for container stdout/stderr.
