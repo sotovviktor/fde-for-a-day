@@ -5,7 +5,11 @@
 * String fields are left EXACTLY as extracted, because text fidelity is an exact
   match on the on-document formatting (stripping ``$``/commas here would lose
   those points).
-* Nested objects and array items are normalized recursively.
+* Nested objects and array items are normalized recursively to arbitrary depth
+  (objects-in-objects and objects-in-arrays), matching the adversarial subtype.
+* Every schema-defined property is emitted. Missing/unreadable values become
+  ``null`` (never ``""`` or ``0``), except boolean checkbox fields whose
+  description asks for a ``false`` default.
 * Keys the schema does not define are pruned.
 """
 
@@ -57,6 +61,40 @@ def _coerce_bool(value: Any) -> bool | None:
     return None
 
 
+def _wants_false_default(subschema: dict[str, Any]) -> bool:
+    """True for boolean fields whose description asks for a ``false`` default.
+
+    Checkbox-style fields (for example "checkbox; defaults to false if
+    unchecked") should read as ``false`` rather than ``null`` when the model
+    leaves them out.
+    """
+    if _schema_type(subschema) != "boolean":
+        return False
+    description = subschema.get("description")
+    if not isinstance(description, str):
+        return False
+    lowered = description.lower()
+    if "checkbox" in lowered:
+        return True
+    return "default" in lowered and "false" in lowered
+
+
+def _default_value(subschema: dict[str, Any]) -> Any:
+    """Value to emit for a schema property the model did not return.
+
+    Missing scalars become ``null`` (checkbox booleans become ``false``). A
+    missing object expands into a null-filled skeleton so every nested property
+    the schema defines is still present.
+    """
+    if _wants_false_default(subschema):
+        return False
+    if _schema_type(subschema) == "object" or "properties" in subschema:
+        properties = subschema.get("properties")
+        if isinstance(properties, dict) and properties:
+            return {key: _default_value(sub) if isinstance(sub, dict) else None for key, sub in properties.items()}
+    return None
+
+
 def _normalize_value(value: Any, subschema: dict[str, Any]) -> Any:
     if value is None or not isinstance(subschema, dict):
         return value
@@ -78,11 +116,18 @@ def _normalize_value(value: Any, subschema: dict[str, Any]) -> Any:
 def _normalize_object(obj: dict[str, Any], schema: dict[str, Any]) -> dict[str, Any]:
     properties = schema.get("properties")
     if not isinstance(properties, dict) or not properties:
+        # Object with no declared properties: nothing to validate against, so
+        # keep whatever the model returned rather than dropping data.
         return obj
     result: dict[str, Any] = {}
-    for key, value in obj.items():
-        if key in properties:
-            result[key] = _normalize_value(value, properties[key])
+    for key, subschema in properties.items():
+        if not isinstance(subschema, dict):
+            result[key] = obj.get(key)
+            continue
+        value = obj.get(key)
+        # Prune extra keys and fill every declared property: missing or explicit
+        # ``null`` values fall back to the schema-appropriate default.
+        result[key] = _normalize_value(value, subschema) if value is not None else _default_value(subschema)
     return result
 
 

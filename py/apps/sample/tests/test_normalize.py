@@ -70,6 +70,101 @@ def test_non_schema_keys_are_pruned() -> None:
     assert normalize_output({"keep": "yes", "drop": "no"}, schema) == {"keep": "yes"}
 
 
+def test_deeply_nested_objects_recurse_to_arbitrary_depth() -> None:
+    schema = {
+        "type": "object",
+        "properties": {
+            "a": {
+                "type": "object",
+                "properties": {
+                    "b": {
+                        "type": "object",
+                        "properties": {
+                            "c": {
+                                "type": "object",
+                                "properties": {"amount": {"type": "number"}, "note": {"type": "string"}},
+                            }
+                        },
+                    }
+                },
+            }
+        },
+    }
+    raw = {"a": {"b": {"c": {"amount": "$3,210.99", "note": "$3,210.99"}}}}
+    out = normalize_output(raw, schema)
+    assert out["a"]["b"]["c"]["amount"] == 3210.99
+    assert out["a"]["b"]["c"]["note"] == "$3,210.99"  # string preserved verbatim
+
+
+def test_arrays_of_objects_with_nested_arrays_recurse() -> None:
+    schema = {
+        "type": "object",
+        "properties": {
+            "invoices": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "total": {"type": "number"},
+                        "lines": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {"qty": {"type": "integer"}, "price": {"type": "number"}},
+                            },
+                        },
+                    },
+                },
+            }
+        },
+    }
+    raw = {
+        "invoices": [
+            {"total": "$1,000.50", "lines": [{"qty": "2", "price": "500.25"}]},
+            {"total": "2,001", "lines": [{"qty": "1", "price": "$2,001.00"}]},
+        ]
+    }
+    out = normalize_output(raw, schema)
+    assert out["invoices"][0]["total"] == 1000.50
+    assert out["invoices"][0]["lines"][0]["qty"] == 2
+    assert out["invoices"][1]["lines"][0]["price"] == 2001.0
+
+
+def test_missing_schema_property_is_filled_with_null() -> None:
+    schema = {
+        "type": "object",
+        "properties": {
+            "present": {"type": "string"},
+            "absent": {"type": "number"},
+            "nested": {"type": "object", "properties": {"inner": {"type": "string"}}},
+        },
+    }
+    out = normalize_output({"present": "here"}, schema)
+    assert out["present"] == "here"
+    assert out["absent"] is None
+    assert out["nested"]["inner"] is None  # nested props filled too
+
+
+def test_explicit_null_stays_null() -> None:
+    schema = {"type": "object", "properties": {"amount": {"type": "number"}}}
+    assert normalize_output({"amount": None}, schema)["amount"] is None
+
+
+def test_checkbox_boolean_defaults_to_false_when_missing() -> None:
+    schema = {
+        "type": "object",
+        "properties": {
+            "agreed": {"type": "boolean", "description": "Checkbox; defaults to false if unchecked."},
+            "signed": {"type": "boolean", "description": "True if signed, default false."},
+            "flag": {"type": "boolean", "description": "Some other boolean field."},
+        },
+    }
+    out = normalize_output({}, schema)
+    assert out["agreed"] is False
+    assert out["signed"] is False
+    assert out["flag"] is None  # plain boolean without checkbox/default hint stays null
+
+
 def test_nullable_union_type_is_handled() -> None:
     schema = {"type": "object", "properties": {"amount": {"type": ["number", "null"]}}}
     assert normalize_output({"amount": "1,000"}, schema)["amount"] == 1000

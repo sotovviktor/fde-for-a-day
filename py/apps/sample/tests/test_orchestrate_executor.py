@@ -7,6 +7,7 @@ from llm_client import AzureLLMClient
 from llm_client import LLMResult
 from models import OrchestrateRequest
 from models import ToolDefinition
+from orchestrate.executor import _MAX_PLANNING_ROUNDS
 from orchestrate.executor import orchestrate
 from orchestrate.schema import PlanDecision
 from orchestrate.schema import PlannedCall
@@ -200,6 +201,31 @@ async def test_failed_tool_call_is_recorded_and_loop_continues(monkeypatch: Monk
     assert result.output.emails_sent is None  # no successful email
 
 
+async def test_status_stays_completed_when_action_tools_return_404(monkeypatch: MonkeyPatch) -> None:
+    # Action tools (notification_send, audit_log) often 404 from the mock service.
+    # The workflow still logically completed, so status must finalize "completed"
+    # (the scorer's goal_completion early-exits to 0 otherwise), NOT "partial".
+    planner = _Planner(
+        [
+            _decision(
+                [
+                    ("notification_send", '{"user_id": "oncall_engineer"}'),
+                    ("audit_log", '{"action": "incident_response"}'),
+                ],
+                complete=True,
+                status="completed",
+            )
+        ]
+    )
+    tools = _Tools(ToolCallResult(status_code=404, body=None, success=False, error="status 404"))
+    llm, tool_client = _clients(monkeypatch, planner, tools)
+
+    result = await _run(_req(["notification_send", "audit_log"]), llm, tool_client)
+
+    assert all(step.success is False for step in result.output.steps_executed)
+    assert result.output.status == "completed"
+
+
 async def test_round_cap_stops_loop_and_reports_partial(monkeypatch: MonkeyPatch) -> None:
     # Planner never signals completion; the cap must stop the loop.
     planner = _Planner([_decision([("inventory_query", "{}")], complete=False)])
@@ -210,6 +236,23 @@ async def test_round_cap_stops_loop_and_reports_partial(monkeypatch: MonkeyPatch
     result = await _run(_req(["inventory_query"]), llm, tool_client, settings)
 
     assert planner.calls == 2  # stopped at the round cap
+    assert result.output.status == "partial"
+
+
+async def test_replan_cap_bounds_llm_calls_below_configured_rounds(monkeypatch: MonkeyPatch) -> None:
+    # Distinct non-completing batches each round (so cycle detection does not fire).
+    # Default settings allow more rounds, but the tight re-plan cap stops planning
+    # at _MAX_PLANNING_ROUNDS so a non-discovery workflow never balloons LLM calls.
+    planner = _Planner(
+        [_decision([("inventory_query", f'{{"warehouse": "W{i}"}}')], complete=False) for i in range(10)]
+    )
+    tools = _Tools()
+    llm, tool_client = _clients(monkeypatch, planner, tools)
+    settings = get_settings().model_copy(update={"orchestrate_max_rounds": 8})
+
+    result = await _run(_req(["inventory_query"]), llm, tool_client, settings)
+
+    assert planner.calls == _MAX_PLANNING_ROUNDS  # tight cap wins over the looser setting
     assert result.output.status == "partial"
 
 

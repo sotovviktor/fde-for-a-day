@@ -130,3 +130,27 @@ async def test_classify_reraises_non_content_filter_failures(monkeypatch: Monkey
     await client.aclose()
 
     assert attempts == 1
+
+
+def test_triage_decision_coerces_labelled_enum_values() -> None:
+    """A labelled priority/category must coerce to the enum, not raise.
+
+    Without few-shot exemplars the model sometimes echoes the prompt's labels
+    (e.g. "P2 (Yellow Alert)"). The before-validators coerce these to the bare
+    enum so llm_client.complete does not raise -- which the endpoint would map
+    to a 503 that scores 0 on every dimension.
+    """
+    decision = TriageDecision.model_validate(
+        {
+            "category": "Communications & Navigation (network routing)",
+            "priority": "P2 (Yellow Alert)",
+            "assigned_team": "Deep Space Communications",
+            "needs_escalation": False,
+            "missing_information": [],
+            "next_best_action": "Investigate the relay.",
+            "remediation_steps": ["Check logs."],
+        }
+    )
+    assert decision.priority == "P2"
+    assert decision.category is Category.COMMS
+    assert decision.assigned_team is Team.COMMS

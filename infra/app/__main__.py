@@ -56,7 +56,7 @@ openai_model_version = "2026-03-17"
 openai_model_format = "OpenAI"
 deployment_name = openai_model
 deployment_sku = "GlobalStandard"
-deployment_capacity = 150
+deployment_capacity = 1000
 openai_api_version = "2024-10-21"
 
 min_replicas = 1

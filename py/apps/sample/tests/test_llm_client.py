@@ -1,6 +1,7 @@
 """Unit tests for AzureLLMClient construction and retry behavior (no network)."""
 
 import asyncio
+import random
 from types import SimpleNamespace
 
 import httpx
@@ -209,3 +210,95 @@ async def test_retry_backoff_honors_retry_after_header(monkeypatch: MonkeyPatch)
     assert calls == 2
     assert slept == [7.0]
     assert result.parsed == {"ok": True}
+
+
+async def test_every_attempt_passes_through_the_rate_limiter(monkeypatch: MonkeyPatch) -> None:
+    """The process-global limiter gates each attempt, including retries."""
+    monkeypatch.setattr(asyncio, "sleep", _no_sleep)
+    settings = get_settings().model_copy(update={"azure_openai_api_key": "test-key", "llm_max_retries": 3})
+    client = AzureLLMClient(settings)
+    acquired = 0
+    original_acquire = client._rate_limiter.acquire
+
+    async def counting_acquire() -> None:
+        nonlocal acquired
+        acquired += 1
+        await original_acquire()
+
+    monkeypatch.setattr(client._rate_limiter, "acquire", counting_acquire)
+
+    calls = 0
+
+    async def flaky_create(**kwargs: object) -> object:
+        nonlocal calls
+        calls += 1
+        if calls < 3:
+            raise RuntimeError("upstream hiccup")
+        return _ok_completion()
+
+    monkeypatch.setattr(client._client.chat.completions, "create", flaky_create)
+
+    try:
+        await client.complete(deployment="test", messages=[], max_completion_tokens=10)
+    finally:
+        await client.aclose()
+
+    assert acquired == 3
+
+
+async def test_semaphore_bounds_in_flight_calls(monkeypatch: MonkeyPatch) -> None:
+    """No more than llm_max_concurrency create calls run simultaneously."""
+    settings = get_settings().model_copy(update={"azure_openai_api_key": "test-key", "llm_max_concurrency": 2})
+    client = AzureLLMClient(settings)
+    in_flight = 0
+    peak = 0
+    release = asyncio.Event()
+
+    async def slow_create(**kwargs: object) -> object:
+        nonlocal in_flight, peak
+        in_flight += 1
+        peak = max(peak, in_flight)
+        await release.wait()
+        in_flight -= 1
+        return _ok_completion()
+
+    monkeypatch.setattr(client._client.chat.completions, "create", slow_create)
+
+    try:
+        tasks = [
+            asyncio.create_task(client.complete(deployment="test", messages=[], max_completion_tokens=10))
+            for _ in range(5)
+        ]
+        await asyncio.sleep(0)  # let the loop schedule the tasks
+        release.set()
+        await asyncio.gather(*tasks)
+    finally:
+        await client.aclose()
+
+    assert peak <= 2
+
+
+async def test_fallback_backoff_is_capped_and_jittered(monkeypatch: MonkeyPatch) -> None:
+    """Without a Retry-After header, backoff uses full jitter over a capped window."""
+    windows: list[float] = []
+
+    def record_uniform(low: float, high: float) -> float:
+        windows.append(high)
+        return high
+
+    monkeypatch.setattr(random, "uniform", record_uniform)
+    settings = get_settings().model_copy(
+        update={"azure_openai_api_key": "test-key", "llm_max_retries": 4, "llm_retry_backoff_cap_seconds": 2.0}
+    )
+    client = AzureLLMClient(settings)
+    try:
+        # window = min(2**attempt, cap): 1, 2, 2 (capped) for attempts 0, 1, 2.
+        assert client._retry_backoff(0, None) == 1.0
+        assert client._retry_backoff(1, None) == 2.0
+        assert client._retry_backoff(2, None) == 2.0
+        # A positive Retry-After bypasses the jittered fallback entirely.
+        assert client._retry_backoff(3, 5.0) == 5.0
+    finally:
+        await client.aclose()
+
+    assert windows == [1.0, 2.0, 2.0]

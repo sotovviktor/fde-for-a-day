@@ -4,11 +4,13 @@ These match the JSON schemas in py/data/task{1,2,3}/ and the
 required response keys validated by the platform's preflight check.
 """
 
+import re
 from enum import Enum
 from typing import Any
 from typing import Literal
 
 from pydantic import EmailStr
+from pydantic import field_validator
 
 from ms.common.models.base import FrozenBaseModel
 
@@ -71,6 +73,11 @@ class MissingInfo(str, Enum):
     SYSTEM_CONFIGURATION = "system_configuration"
 
 
+# Coercions that keep a cosmetically-off model reply from hard-failing validation.
+_PRIORITY_CODE_RE = re.compile(r"[Pp]\s*([1-4])")
+_TRAILING_PARENTHETICAL_RE = re.compile(r"\s*\([^)]*\)\s*$")
+
+
 # The model returns every field except ticket_id; the server injects ticket_id
 # from the request during guardrails. Validating raw model output against
 # TriageDecision (not TriageResponse) lets a compliant reply -- which omits
@@ -83,6 +90,26 @@ class TriageDecision(FrozenBaseModel):
     missing_information: list[MissingInfo]
     next_best_action: str
     remediation_steps: list[str]
+
+    @field_validator("priority", mode="before")
+    @classmethod
+    def _coerce_priority(cls, value: Any) -> Any:
+        """Accept a bare code or a labelled variant ("P2 (Yellow Alert)" -> "P2")."""
+        if isinstance(value, str):
+            match = _PRIORITY_CODE_RE.search(value)
+            if match:
+                return f"P{match.group(1)}"
+        return value
+
+    @field_validator("category", "assigned_team", mode="before")
+    @classmethod
+    def _strip_trailing_label(cls, value: Any) -> Any:
+        """Drop a trailing "(...)" annotation so a labelled enum still validates."""
+        if isinstance(value, str):
+            cleaned = _TRAILING_PARENTHETICAL_RE.sub("", value).strip()
+            if cleaned:
+                return cleaned
+        return value
 
 
 class TriageResponse(TriageDecision):

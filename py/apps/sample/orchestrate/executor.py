@@ -1,10 +1,13 @@
-"""Workflow orchestration executor: the plan -> execute -> observe loop.
+"""Workflow orchestration executor: deterministic plan-then-execute.
 
-Repeatedly ask the planner for the next batch of tool calls, execute them
-(consecutive same-tool calls run in parallel), feed the results back as
-observations, and stop when the planner reports the workflow is complete or a
-round / tool-call cap is hit. Records a typed :class:`StepExecuted` per call and
-derives the response envelope.
+Ask the planner ONCE for the full ordered plan of tool calls, execute them
+(consecutive same-tool calls run in parallel), and finish. We only make a
+SECOND (or third) planning call when the planner reports it is *not* done — i.e.
+later steps need IDs/values it can only read back from tool OBSERVATIONS (a
+search result, a looked-up account). Re-planning is capped tightly by
+``_MAX_PLANNING_ROUNDS`` and by the request-level round / tool-call caps, so a
+workflow whose parameters are all known up front costs exactly one LLM call.
+Records a typed :class:`StepExecuted` per call and derives the response envelope.
 """
 
 import asyncio
@@ -34,6 +37,8 @@ from orchestrate.tool_client import ToolClient
 logger = logging.getLogger(__name__)
 
 _OBSERVATION_MAX_CHARS = 1000
+
+_MAX_PLANNING_ROUNDS = 3
 
 
 @dataclass(frozen=True)
@@ -67,7 +72,10 @@ async def orchestrate(
     latest_decision: PlanDecision | None = None
     seen_call_batches: set[tuple[tuple[str, str], ...]] = set()
 
-    for _round in range(settings.orchestrate_max_rounds):
+    # One planning call up front; extra rounds happen only for discovery-dependent
+    # tails and are bounded tightly (see ``_MAX_PLANNING_ROUNDS``).
+    max_rounds = min(settings.orchestrate_max_rounds, _MAX_PLANNING_ROUNDS)
+    for _round in range(max_rounds):
         messages = build_planner_messages(req, observations, max_chars=settings.max_description_chars)
         result = await llm_client.complete(
             deployment=settings.orchestrate_model,
@@ -87,23 +95,20 @@ async def orchestrate(
             break
         seen_call_batches.add(call_batch)
 
-        prepared = [_prepare_call(call, tools_by_name) for call in decision.calls]
         remaining_calls = settings.orchestrate_max_tool_calls - len(steps)
         if remaining_calls <= 0:
             break
+        prepared = [_prepare_call(call, tools_by_name) for call in decision.calls]
         hit_tool_cap = len(prepared) > remaining_calls
         if hit_tool_cap:
             logger.warning("tool-call cap reached for %s; truncating planner batch", req.task_id)
             prepared = prepared[:remaining_calls]
 
-        for group in _consecutive_groups(prepared):
-            group_results = await asyncio.gather(*(_dispatch(call, tool_client) for call in group))
-            for prepared_call, call_result in zip(group, group_results, strict=True):
-                steps.append(_record_step(len(steps) + 1, prepared_call, call_result))
-                observations.append(_observation(len(steps), prepared_call, call_result))
+        await _execute_batch(prepared, steps, observations, tool_client)
 
         if hit_tool_cap:
             break
+        # Only re-plan when the planner deferred work that needs observed values.
         if decision.workflow_complete:
             completed_naturally = True
             break
@@ -113,6 +118,25 @@ async def orchestrate(
     status = _finalize_status(planner_status, steps, completed_naturally=completed_naturally)
     output = _build_response(req, status, steps, latest_decision)
     return TaskResult(output=output, prompt_tokens=prompt_tokens, completion_tokens=completion_tokens)
+
+
+async def _execute_batch(
+    prepared: list[_PreparedCall],
+    steps: list[StepExecuted],
+    observations: list[str],
+    tool_client: ToolClient,
+) -> None:
+    """Dispatch a planned batch, recording a step + observation for each call.
+
+    Consecutive same-tool calls run in parallel; cross-tool order is preserved so
+    lookups still complete before the calls that depend on them. Mutates ``steps``
+    and ``observations`` in place.
+    """
+    for group in _consecutive_groups(prepared):
+        group_results = await asyncio.gather(*(_dispatch(call, tool_client) for call in group))
+        for prepared_call, call_result in zip(group, group_results, strict=True):
+            steps.append(_record_step(len(steps) + 1, prepared_call, call_result))
+            observations.append(_observation(len(steps), prepared_call, call_result))
 
 
 def _call_batch_signature(calls: list[PlannedCall]) -> tuple[tuple[str, str], ...]:

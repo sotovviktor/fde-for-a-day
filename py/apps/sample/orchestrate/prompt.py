@@ -1,4 +1,4 @@
-"""Load the orchestration planner prompt + few-shots from ``prompt.yaml`` and
+"""Load the orchestration planner prompt + few-shot from ``prompt.yaml`` and
 build the chat messages for one planning round."""
 
 from pathlib import Path
@@ -36,7 +36,7 @@ def build_planner_messages(
     *,
     max_chars: int,
 ) -> list[ChatCompletionMessageParam]:
-    """Assemble the system prompt, few-shots, the workflow, and observations so far."""
+    """Assemble the system prompt, few-shot, the workflow, and observations so far."""
     messages: list[ChatCompletionMessageParam] = [
         ChatCompletionSystemMessageParam(role="system", content=_SYSTEM_PROMPT),
         *few_shot_messages(_FEW_SHOTS),
@@ -47,10 +47,18 @@ def build_planner_messages(
         joined = "\n".join(observations)
         user_content += (
             f"\n\nOBSERVATIONS SO FAR (results of executed calls):\n{joined}"
-            "\n\nPlan the next batch. If the goal is fully satisfied, "
-            "return no calls and set workflow_complete=true."
+            "\n\nPlan the remaining calls using the observed IDs/values. If the goal is now "
+            "fully satisfied, return no further calls and set workflow_complete=true. "
+            "Respond with the PlanDecision json object."
         )
     else:
-        user_content += "\n\nPlan the first batch of tool calls."
+        user_content += (
+            "\n\nPlan the WHOLE workflow now. If every parameter is already known from the "
+            "GOAL and CONSTRAINTS, emit the complete ordered plan in one batch and set "
+            "workflow_complete=true. Only when a later step needs an ID/value you can read "
+            "solely from a tool result (a search/lookup) do you emit just the calls up to and "
+            "including that lookup with workflow_complete=false. Respond with the PlanDecision "
+            "json object."
+        )
     messages.append(ChatCompletionUserMessageParam(role="user", content=user_content))
     return messages

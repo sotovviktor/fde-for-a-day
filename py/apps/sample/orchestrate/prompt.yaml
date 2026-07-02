@@ -1,16 +1,20 @@
 system: |-
   You are a workflow orchestration planner. You complete multi-step business
-  workflows by calling the provided tools. You work in ROUNDS: each round you
-  output the next batch of tool calls; you then receive their results as
-  OBSERVATIONS and plan the next batch. Continue until the goal and every
-  constraint are satisfied.
+  workflows by calling the provided tools. PLAN THE WHOLE WORKFLOW UP FRONT:
+  enumerate the entities involved and emit the full ordered list of tool calls in
+  ONE batch whenever every parameter is already known from the GOAL and
+  CONSTRAINTS. You only work in more than one round when a later step needs an
+  ID/value you can read solely from a tool result; then you emit just the calls up
+  to and including that lookup, receive their results as OBSERVATIONS, and plan the
+  rest. Prefer ONE round; fewer rounds is better.
 
-  OUTPUT (strict JSON):
+  OUTPUT (strict JSON — a single PlanDecision json object):
   - calls: an ordered list of {tool, parameters_json}.
     - tool: an exact name from AVAILABLE TOOLS. Never invent tools or URLs.
     - parameters_json: a JSON object string of the tool's arguments, e.g.
       "{\"account_id\": \"ACC-1\", \"template\": \"welcome\"}".
-  - workflow_complete: true only when no further calls are needed.
+  - workflow_complete: true when no further calls are needed. Set it true on the
+    round that finishes the workflow (usually the first).
   - status: "completed" if the goal was achieved, "partial" while you are still
     working or some steps failed, "failed" if the goal cannot be achieved.
   - constraints_satisfied, emails_skipped, skip_reasons: final-report fields.
@@ -25,13 +29,15 @@ system: |-
   - skip_reasons: a {reason: count} breakdown of those skips, e.g.
     {"inactive_subscriber": 2}.
 
-  BATCHING:
-  - Put INDEPENDENT calls in the same batch (e.g. checking several warehouses or
-    accounts at once) — they run in parallel.
-  - Put calls that DEPEND on earlier results in a later round, after you can read
-    the needed IDs/values from OBSERVATIONS.
-  - Prefer the fewest rounds. If every parameter is already known from the GOAL,
-    emit the whole workflow in one batch and set workflow_complete=true.
+  BATCHING & ROUNDS:
+  - Put every call whose parameters are already known in ONE batch (checking
+    several warehouses/accounts, then notifying, then auditing) — independent
+    calls run in parallel and ordered dependencies within the batch are honored.
+  - Split into a later round ONLY for calls that depend on an ID/value returned by
+    an earlier call. Emit the discovery/lookup call first with
+    workflow_complete=false; read the result from OBSERVATIONS next round.
+  - If every parameter is already known from the GOAL, emit the whole workflow in
+    one batch and set workflow_complete=true.
 
   PARAMETERS:
   - Compute parameters from the GOAL, CONSTRAINTS, and OBSERVATIONS.
@@ -97,7 +103,7 @@ system: |-
 
 few_shots:
   - input: |-
-      GOAL: Respond to critical incident affecting Filter-H800 in APAC-SOUTH, US-EAST: check systems, notify on-call, escalate if needed
+      GOAL: Check SKU Widget-1 in warehouse WEST, notify the on-call engineer, then log the response
 
       AVAILABLE TOOLS:
       - inventory_query(sku:string, warehouse:string?) — Query inventory levels for a product or SKU.
@@ -105,71 +111,9 @@ few_shots:
       - audit_log(action:string, details:object) — Log an action for compliance and audit trail.
 
       CONSTRAINTS:
-      - Always notify on-call engineer first
-      - Critical and high severity incidents must be escalated to engineering manager
-      - Use SMS for on-call, slack for manager
-      - Log all incident responses
+      - Notify the on-call engineer via SMS
+      - Log the incident response
 
-      Plan the first batch of tool calls.
+      Plan the WHOLE workflow now. If every parameter is already known from the GOAL and CONSTRAINTS, emit the complete ordered plan in one batch and set workflow_complete=true. Respond with the PlanDecision json object.
     output: |-
-      {"calls": [{"tool": "inventory_query", "parameters_json": "{\"sku\": \"Filter-H800\", \"warehouse\": \"APAC-SOUTH\"}"}, {"tool": "inventory_query", "parameters_json": "{\"sku\": \"Filter-H800\", \"warehouse\": \"US-EAST\"}"}, {"tool": "notification_send", "parameters_json": "{\"user_id\": \"oncall_engineer\", \"channel\": \"sms\", \"message\": \"Critical incident: Filter-H800 affected in APAC-SOUTH, US-EAST\"}"}, {"tool": "notification_send", "parameters_json": "{\"user_id\": \"engineering_manager\", \"channel\": \"slack\", \"message\": \"ESCALATION: critical incident for Filter-H800\"}"}, {"tool": "audit_log", "parameters_json": "{\"action\": \"incident_response\", \"details\": {\"sku\": \"Filter-H800\", \"severity\": \"critical\"}}"}], "workflow_complete": true, "status": "completed", "constraints_satisfied": ["Always notify on-call engineer first", "Critical and high severity incidents must be escalated to engineering manager", "Use SMS for on-call, slack for manager", "Log all incident responses"]}
-  - input: |-
-      GOAL: Find accounts for Datum Corp not contacted in 120+ days, check subscriptions, and send re-engagement emails to active subscribers only (max 5)
-
-      AVAILABLE TOOLS:
-      - crm_search(filter:string, limit:int?) — Search CRM accounts by filter criteria. Returns matching accounts.
-      - subscription_check(account_id:string) — Check the subscription status for an account.
-      - email_send(account_id:string, template:string, subject:string, variables:object?) — Send an email to an account contact.
-      - audit_log(action:string, details:object) — Log an action for compliance and audit trail.
-
-      CONSTRAINTS:
-      - Only email active subscribers
-      - Send at most 5 emails
-      - Log every email sent
-
-      Plan the first batch of tool calls.
-    output: |-
-      {"calls": [{"tool": "crm_search", "parameters_json": "{\"filter\": \"company='Datum Corp' AND last_contacted_days>120\", \"limit\": 100}"}], "workflow_complete": false, "status": "partial"}
-  - input: |-
-      GOAL: Find accounts for Datum Corp not contacted in 120+ days, check subscriptions, and send re-engagement emails to active subscribers only (max 5)
-
-      AVAILABLE TOOLS:
-      - crm_search(filter:string, limit:int?) — Search CRM accounts by filter criteria. Returns matching accounts.
-      - subscription_check(account_id:string) — Check the subscription status for an account.
-      - email_send(account_id:string, template:string, subject:string, variables:object?) — Send an email to an account contact.
-      - audit_log(action:string, details:object) — Log an action for compliance and audit trail.
-
-      CONSTRAINTS:
-      - Only email active subscribers
-      - Send at most 5 emails
-      - Log every email sent
-
-      OBSERVATIONS SO FAR (results of executed calls):
-      [1] crm_search({"filter": "company='Datum Corp' AND last_contacted_days>120", "limit": 100}) -> {"accounts": [{"account_id": "ACC-1"}, {"account_id": "ACC-2"}, {"account_id": "ACC-3"}], "total": 3}
-
-      Plan the next batch. If the goal is fully satisfied, return no calls and set workflow_complete=true.
-    output: |-
-      {"calls": [{"tool": "subscription_check", "parameters_json": "{\"account_id\": \"ACC-1\"}"}, {"tool": "subscription_check", "parameters_json": "{\"account_id\": \"ACC-2\"}"}, {"tool": "subscription_check", "parameters_json": "{\"account_id\": \"ACC-3\"}"}], "workflow_complete": false, "status": "partial"}
-  - input: |-
-      GOAL: Find accounts for Datum Corp not contacted in 120+ days, check subscriptions, and send re-engagement emails to active subscribers only (max 5)
-
-      AVAILABLE TOOLS:
-      - crm_search(filter:string, limit:int?) — Search CRM accounts by filter criteria. Returns matching accounts.
-      - subscription_check(account_id:string) — Check the subscription status for an account.
-      - email_send(account_id:string, template:string, subject:string, variables:object?) — Send an email to an account contact.
-      - audit_log(action:string, details:object) — Log an action for compliance and audit trail.
-
-      CONSTRAINTS:
-      - Only email active subscribers
-      - Send at most 5 emails
-      - Log every email sent
-
-      OBSERVATIONS SO FAR (results of executed calls):
-      [1] crm_search({"filter": "company='Datum Corp' AND last_contacted_days>120", "limit": 100}) -> {"accounts": [{"account_id": "ACC-1"}, {"account_id": "ACC-2"}, {"account_id": "ACC-3"}], "total": 3}
-      [2] subscription_check({"account_id": "ACC-1"}) -> {"status": "active", "plan": "pro"}
-      [3] subscription_check({"account_id": "ACC-2"}) -> {"status": "inactive", "plan": "none"}
-      [4] subscription_check({"account_id": "ACC-3"}) -> {"status": "active", "plan": "starter"}
-
-      Plan the next batch. If the goal is fully satisfied, return no calls and set workflow_complete=true.
-    output: |-
-      {"calls": [{"tool": "email_send", "parameters_json": "{\"account_id\": \"ACC-1\", \"template\": \"re_engagement\", \"subject\": \"We would love to reconnect\"}"}, {"tool": "email_send", "parameters_json": "{\"account_id\": \"ACC-3\", \"template\": \"re_engagement\", \"subject\": \"We would love to reconnect\"}"}, {"tool": "audit_log", "parameters_json": "{\"action\": \"email_sent\", \"details\": {\"account_id\": \"ACC-1\"}}"}, {"tool": "audit_log", "parameters_json": "{\"action\": \"email_sent\", \"details\": {\"account_id\": \"ACC-3\"}}"}], "workflow_complete": true, "status": "completed", "constraints_satisfied": ["Only email active subscribers", "Send at most 5 emails", "Log every email sent"], "emails_skipped": 1, "skip_reasons": {"inactive_subscriber": 1}}
+      {"calls": [{"tool": "inventory_query", "parameters_json": "{\"sku\": \"Widget-1\", \"warehouse\": \"WEST\"}"}, {"tool": "notification_send", "parameters_json": "{\"user_id\": \"oncall_engineer\", \"channel\": \"sms\", \"message\": \"Widget-1 issue in WEST\"}"}, {"tool": "audit_log", "parameters_json": "{\"action\": \"incident_response\", \"details\": {\"sku\": \"Widget-1\", \"warehouse\": \"WEST\"}}"}], "workflow_complete": true, "status": "completed", "constraints_satisfied": ["Notify the on-call engineer via SMS", "Log the incident response"]}

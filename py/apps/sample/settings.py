@@ -33,6 +33,18 @@ class Settings(BaseSettings):
     max_concurrency: int = 20
     max_description_chars: int = 8000
 
+    # Global LLM rate limiting.
+    # A token bucket paces request *starts*: it refills at llm_max_rpm * llm_rpm_safety_factor
+    # (= 1000 * 0.8 = 800 RPM) and holds up to llm_burst_capacity tokens for short bursts.
+    llm_max_rpm: int = 1000
+    llm_rpm_safety_factor: float = 0.8
+    llm_burst_capacity: float = 40.0
+    # Bounds simultaneous in-flight LLM calls (memory/socket safety). Sized so the rate limiter
+    # (800 RPM), not the semaphore, is the throughput ceiling: fast tasks (~2.7s latency) need
+    # ~36 in-flight to sustain 800 RPM, so 40 gives headroom without starving the quota.
+    llm_max_concurrency: int = 40
+    llm_retry_backoff_cap_seconds: float = 4.0
+
     # Task 1 (signal triage) tuning.
     triage_max_output_tokens: int = 800
     # On an Azure content-filter/jailbreak block, triage retries once with the signal

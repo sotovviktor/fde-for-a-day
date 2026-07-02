@@ -4,6 +4,7 @@ import asyncio
 import email.utils
 import json
 import logging
+import random
 import time
 from dataclasses import dataclass
 from typing import Any
@@ -14,6 +15,7 @@ from azure.identity.aio import get_bearer_token_provider
 from openai import AsyncAzureOpenAI
 from openai.types.chat import ChatCompletionMessageParam
 from pydantic import ValidationError
+from rate_limiter import AsyncRateLimiter
 from settings import Settings
 
 from ms.common.models.base import FrozenBaseModel
@@ -64,6 +66,17 @@ class AzureLLMClient:
         if api_key is None:
             self._credential = DefaultAzureCredential()
             token_provider = get_bearer_token_provider(self._credential, _AZURE_TOKEN_SCOPE)
+        # Process-global gates shared by every endpoint (this client is a singleton):
+        #  - the rate limiter paces request *starts* to stay under the shared AOAI RPM quota;
+        #  - the semaphore bounds simultaneous in-flight calls for memory/socket safety.
+        effective_rpm = max(1.0, settings.llm_max_rpm * settings.llm_rpm_safety_factor)
+        self._rate_limiter = AsyncRateLimiter(
+            rate_per_second=effective_rpm / 60.0,
+            capacity=settings.llm_burst_capacity,
+        )
+        self._concurrency = asyncio.Semaphore(settings.llm_max_concurrency)
+        # The httpx connection pool must be able to serve the full concurrency budget.
+        max_connections = max(settings.max_concurrency, settings.llm_max_concurrency)
         self._client = AsyncAzureOpenAI(
             azure_endpoint=settings.azure_openai_endpoint,
             api_key=api_key,
@@ -72,8 +85,8 @@ class AzureLLMClient:
             max_retries=settings.llm_max_retries,
             http_client=httpx.AsyncClient(
                 limits=httpx.Limits(
-                    max_connections=settings.max_concurrency,
-                    max_keepalive_connections=10,
+                    max_connections=max_connections,
+                    max_keepalive_connections=max_connections,
                     keepalive_expiry=30,
                 ),
                 timeout=httpx.Timeout(
@@ -88,20 +101,25 @@ class AzureLLMClient:
     async def _create_with_retry(self, *, timeout: float, **kwargs: Any) -> Any:
         """Call ``chat.completions.create`` with a per-attempt timeout and backoff.
 
+        Every attempt is gated through the process-global rate limiter (to pace
+        request starts under the shared AOAI RPM quota) and concurrency semaphore.
         Retries up to ``settings.llm_max_retries`` times. The wait between attempts
         honors an upstream ``Retry-After`` header when one is sent (e.g. on 429s),
-        otherwise falls back to ``2 ** attempt`` seconds. Raises
+        otherwise falls back to a full-jittered, capped exponential backoff. Raises
         :class:`LLMUnavailableError` once the attempt budget is exhausted.
         """
         max_retries = max(1, self._settings.llm_max_retries)
         last_exc: Exception | None = None
         for attempt in range(max_retries):
             retry_after: float | None = None
+            # Pace this request start, then bound in-flight concurrency for the call.
+            await self._rate_limiter.acquire()
             try:
-                return await asyncio.wait_for(
-                    self._client.chat.completions.create(**kwargs),
-                    timeout=timeout,
-                )
+                async with self._concurrency:
+                    return await asyncio.wait_for(
+                        self._client.chat.completions.create(**kwargs),
+                        timeout=timeout,
+                    )
             except TimeoutError as exc:
                 last_exc = exc
                 logger.warning(
@@ -120,9 +138,19 @@ class AzureLLMClient:
                     exc,
                 )
             if attempt < max_retries - 1:
-                backoff = retry_after if retry_after is not None and retry_after > 0 else float(2**attempt)
-                await asyncio.sleep(backoff)
+                await asyncio.sleep(self._retry_backoff(attempt, retry_after))
         raise LLMUnavailableError(f"LLM call failed after {max_retries} attempts: {last_exc}") from last_exc
+
+    def _retry_backoff(self, attempt: int, retry_after: float | None) -> float:
+        """Seconds to wait before the next attempt.
+
+        Honors a positive upstream ``Retry-After`` header.
+        Otherwise uses full jitter over a capped exponential window.
+        """
+        if retry_after is not None and retry_after > 0:
+            return retry_after
+        window = min(float(2**attempt), self._settings.llm_retry_backoff_cap_seconds)
+        return random.uniform(0.0, window)
 
     def _parse_retry_after_header(self, response_headers: httpx.Headers | None = None) -> float | None:
         """Return seconds to wait before retrying per the ``Retry-After`` header, or None.
