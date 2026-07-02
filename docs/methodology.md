@@ -2,32 +2,118 @@
 
 ## Approach
 
-<!-- How did you break down 3 tasks under time pressure? Did you start with one task or scaffold all three? What was your strategy? -->
+Foundation first, then fan out. I built Task 1 as one vertical slice — but I built
+the parts that all three tasks would share (the Azure client, settings, the
+`prompt.yaml` + `prompt.py` + domain-module pattern) as task-agnostic from the
+start. Once that spine existed, Tasks 2 and 3 were mostly new prompts and new
+domain logic on top of it, and they landed together in a single push.
+
+The other constant: the scorer was the spec. Before writing each task I read its
+scorer in `fdebenchkit` and let the weights drive the design. That is why triage
+optimizes five specific fields, extraction preserves exact strings, and
+orchestration records exact resolved parameters — each maps to how points are
+actually awarded, not to what looked impressive.
 
 ## Time allocation
 
-<!-- Roughly how did you spend your time across the 3 tasks? Which task got the most attention and why? -->
+The commit history tells the story (all on 2026-07-01):
+
+| Time | Commit | What landed |
+|---|---|---|
+| 00:12 | Triage task | Task 1 **+ the shared spine** (LLM client, settings, prompt/guardrails pattern) |
+| 08:33 | task 2 and 3 | Extract + orchestrate, built on the Task 1 foundation |
+| 10:32 | Refactor code | First consolidation pass |
+| 11:00 | Infra + refactor | Pulumi scaffold begins |
+| 11:10 | refactor tests | Test suite reshaped |
+| 12:52 | Refactor | Further cleanup |
+| 14:23 | Finish pulumi | Deployment finished |
+
+Two things stand out. Task 1 got a dedicated block because it carried the shared
+foundation; Tasks 2 and 3 were comparatively cheap because that foundation already
+existed. And roughly half the wall-clock after the features worked went to
+refactoring, tests, and infrastructure — hardening cost about as much as building.
 
 ## Task 1: Signal Triage
 
-<!-- What was your approach? How did you iterate on the prompt? What moved the needle on scores? What didn't work? -->
+One structured LLM call, validated against the fixed `TriageResponse`, then a
+deterministic guardrail pass. The design came straight from the scorer: only five
+fields are scored (category, priority, team at 24% each; missing-info 17%;
+escalation 11%), so `next_best_action` and `remediation_steps` stay short to
+protect latency, and the prompt is organized dimension by dimension. Few-shots
+target the cases that fool a small model — a calm message that is really a P1, an
+auto-reply that is "not a signal," an abuse request that must be refused *and*
+escalated.
+
+The guardrails are where I stopped trusting the model: force `team = None` on
+non-signals, a deliberately narrow always-escalate phrase list, de-dupe
+missing-info, re-stamp the `ticket_id`. Narrow was a choice — a broad
+always-escalate list would wreck escalation precision, which is scored as a binary.
+What I would not defend: the team back-fill is a static category→team map, so the
+documented gray areas (a security-dominant biometric issue) live only in the
+prompt, not in code. The eval bore this out unevenly: `category` (0.760) and
+`routing` (0.711) are the strong dimensions, but `missing_info` (0.249) is the
+weakest of any dimension across all three tasks and the main drag on triage
+resolution.
 
 ## Task 2: Document Extraction
 
-<!-- How did you approach OCR document extraction? What vision model did you use? How do you handle different document types and schemas? What normalization challenges did you hit? -->
+One vision call, with the per-document `json_schema` injected into the prompt
+rather than enforced as a strict structured output — the real schemas use optional
+fields, `additionalProperties`, `enum`, `pattern`, and `format`, which strict mode
+rejects. The scorer drove the hard call in normalization: information accuracy
+(70%) coerces numbers, but text fidelity (30%) is an exact string match. So I
+**preserve strings exactly and coerce only numbers and booleans** — stripping a
+`$` would lose fidelity points, while `float("1,234")` raises unless the grouping
+comma is removed. That single asymmetry is most of the extraction logic.
+
+The constraint I kept an eye on was the timeout budget: `timeout × (retries + 1)`
+has to stay under the platform's 60s deadline, so vision gets an 18s per-call
+timeout and a capped retry count. Deferred on purpose: image downscaling
+(Pillow) — worth it only if latency runs hot on big multi-page tables, which I did
+not measure. In hindsight I should have: extraction is the slowest task (P95
+14.2 s) and the only one that fails a resilience probe (`concurrent_burst`), so
+latency and load — not the schema logic — are where it loses points.
 
 ## Task 3: Workflow Orchestration
 
-<!-- How did you approach multi-step planning? How does your system handle tool failures? What was hardest about this task? -->
+The hardest task, and the one where I rejected the obvious tool. I did **not** use
+the Microsoft Agent Framework: its native loop spends one LLM round-trip per tool
+call, which fights the 1,500 ms latency target and hands away control of the exact
+`steps_executed` trace the scorer reads. Instead: a lean, bounded plan → execute →
+observe loop (4 rounds, 30 calls) over the shared client.
+
+A loop was necessary, not decorative. Constraint compliance (40%) and goal
+completion (20%) are checked against exact resolved parameters, and workflows like
+churn or re-engagement need entities discovered at runtime (`crm_search` →
+`subscription_check` → conditional act) — a single blind plan cannot do that.
+Failures become observations the planner can react to; consecutive same-tool calls
+run in parallel for the fan-out latency win. `status` is honest — `completed` only
+when the loop finished cleanly, because `goal_completion` scores zero otherwise.
+The design paid off where it was aimed — `constraint_compliance` (0.760, the 40%
+driver) and `tool_selection` (0.759) are the strong dimensions — but
+`goal_completion` (0.452) is the weak point: workflows still stop short of the full
+goal, and the multi-round loop makes this the worst task on latency (P95 11.9 s,
+efficiency 40.0).
 
 ## What worked
 
-<!-- Which techniques, prompt strategies, or architectural decisions paid off across tasks? -->
+- **Building the shared spine during Task 1.** The payoff is visible in the git log: Tasks 2 and 3 shipped in one commit because the client, settings, and patterns already existed.
+- **Reading the scorer before the prompt.** Every task's key decision — five-field focus, string-fidelity preservation, exact-parameter recording — traces to a specific weight in `fdebenchkit`.
+- **Judgment in the prompt, contracts in code.** Guardrails, normalization, and loop caps make model mistakes recoverable and unit-testable without a network call.
+- **One nano model everywhere.** It maxes the cost sub-score (1.000 on every task), and resolution held up better than feared (avg 64.9) with prompt engineering and deterministic checks doing the accuracy work. (Latency was the price — see below.)
 
 ## What didn't work
 
-<!-- What did you try that failed? Why? -->
+- **I measured too late.** The full eval pass exists now ([evals.md](evals.md), composite 65.6), but I ran it after tuning — so its findings are post-mortem, not design input. It surfaced latency as the systemic drag (efficiency avg 50.4) and three resolution gaps I would have designed around: triage `missing_info` (0.249), orchestration `goal_completion` (0.452), extraction `text_fidelity` (0.600).
+- **Latency undercut the model bet.** nano maxed the cost sub-score (1.000 everywhere) but is not fast enough here: every task's latency score is ≤ 0.262 and orchestration's P95 (11.9 s) zeroes the penalty. The "cheap and fast" assumption was half wrong.
+- **`/extract` breaks under concurrent load.** It is the only probe failure in the run — the 20-request `concurrent_burst` — and the least robust task (72.8).
+- **The failure contract drifted.** Extract and orchestrate return a scored 200 fallback; triage returns 503. Defensible per task, inconsistent as a whole, and never reconciled.
+- **`accounts_processed` is still a heuristic.** The other aggregate fields (`emails_skipped`, `skip_reasons`, `constraints_satisfied`) are now populated from the planner's final self-report, but `accounts_processed` still scrapes `account_id` parameters from the trace.
+- **Domain rules as prose.** Orchestration's roles, templates, and channels live in the prompt, which risks overfitting the public set instead of generalizing.
 
 ## Key learnings
 
-<!-- What would you do differently if you started over? What surprised you? -->
+- **The scorer is the specification.** Reading `fdebenchkit` first was the highest-leverage habit; it changed the design of all three tasks.
+- **Reuse compounds — invest in the foundation early.** The one-commit Task 2/3 build was bought by the extra care taken on Task 1's shared spine.
+- **Decide the failure contract once, up front.** The 503-vs-200 split is a small decision that should have been made globally on day zero, not per task.
+- **Measure while building, not after.** I did run the full harness in the end (composite 65.6), but late — measuring earlier would have caught the latency drag and triage's `missing_info` gap while there was still time to fix them.

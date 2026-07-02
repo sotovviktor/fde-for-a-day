@@ -6,7 +6,7 @@
 # Common library paths (fallback for namespace package resolution)
 export PYTHONPATH := $(CURDIR)/common/libs/models/src:$(CURDIR)/common/libs/fdebenchkit/src:$(CURDIR)/common/libs/fastapi/src
 
-.PHONY: help setup run eval eval-triage eval-extract eval-orchestrate mock-tools
+.PHONY: help setup run test eval eval-triage eval-extract eval-orchestrate mock-tools
 
 help: ## Show this help
 	@echo "FDEBench Development Commands"
@@ -18,6 +18,7 @@ help: ## Show this help
 	@echo "  make eval-extract       Score Task 2 only"
 	@echo "  make eval-orchestrate   Score Task 3 only"
 	@echo "  make mock-tools         Start mock tool service on :9090"
+	@echo "  make test               Run unit tests (mocked LLM; no network)"
 	@echo ""
 	@echo "Typical workflow:"
 	@echo "  make setup        # once"
@@ -51,3 +52,6 @@ eval-orchestrate: ## Score Task 3 only
 
 mock-tools: ## Start the mock tool service for Task 3 (port 9090)
 	cd apps/eval && python mock_tool_service.py
+
+test: ## Run the sample app unit tests (mocked LLM; no network)
+	cd apps/sample && uv run python -m pytest tests -q

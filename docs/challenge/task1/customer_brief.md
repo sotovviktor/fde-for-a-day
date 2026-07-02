@@ -1,11 +1,12 @@
 # Task 1: Customer Brief
 
-> 📺 **Watch first [V1: Cmdr. Kapoor explains the problem](https://youtu.be/yLGHRmZPzu0)**
+> 📺 **Watch first [V1: Cmdr. Kapoor explains the problem](https://youtu.be/yLGHRmZPzu0)** (transcript in V1-transcript.txt)
 >
 > The customer pain, signal channels, target metrics, and the unwritten rules
 > ("people say urgent about everything", quiet signals can be the real
 > emergencies, hull breach always escalates) live in the video. This file
 > only documents the team labels you must emit.
+
 
 ## Specialist teams
 

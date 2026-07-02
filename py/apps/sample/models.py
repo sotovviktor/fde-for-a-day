@@ -8,7 +8,6 @@ from enum import Enum
 from typing import Any
 from typing import Literal
 
-from pydantic import ConfigDict
 from pydantic import EmailStr
 
 from ms.common.models.base import FrozenBaseModel
@@ -72,8 +71,11 @@ class MissingInfo(str, Enum):
     SYSTEM_CONFIGURATION = "system_configuration"
 
 
-class TriageResponse(FrozenBaseModel):
-    ticket_id: str
+# The model returns every field except ticket_id; the server injects ticket_id
+# from the request during guardrails. Validating raw model output against
+# TriageDecision (not TriageResponse) lets a compliant reply -- which omits
+# ticket_id -- parse cleanly.
+class TriageDecision(FrozenBaseModel):
     category: Category
     priority: Literal["P1", "P2", "P3", "P4"]
     assigned_team: Team
@@ -81,6 +83,10 @@ class TriageResponse(FrozenBaseModel):
     missing_information: list[MissingInfo]
     next_best_action: str
     remediation_steps: list[str]
+
+
+class TriageResponse(TriageDecision):
+    ticket_id: str
 
 
 # Task 2: Document Extraction
@@ -91,22 +97,6 @@ class ExtractRequest(FrozenBaseModel):
     content: str  # base64-encoded document image
     content_format: str = "image_base64"
     json_schema: str | None = None  # JSON schema describing expected output
-
-
-class ExtractResponse(FrozenBaseModel):
-    """Generic extraction response. Fields vary per document.
-
-    The scorer compares your output field-by-field against the gold data.
-    Return ``document_id`` plus whatever fields ``json_schema`` specifies.
-    Extra fields are ignored. Missing fields score 0.
-    """
-
-    document_id: str
-    # All other fields are dynamic. Use model_extra or return a dict.
-    # The sample stub only returns document_id. A real implementation
-    # parses json_schema and returns matching fields.
-
-    model_config = ConfigDict(extra="allow")
 
 
 # Task 3: Workflow Orchestration
@@ -142,9 +132,12 @@ class StepExecuted(FrozenBaseModel):
     success: bool = True
 
 
+WorkflowStatus = Literal["completed", "partial", "failed"]
+
+
 class OrchestrateResponse(FrozenBaseModel):
     task_id: str
-    status: Literal["completed", "partial", "failed"]
+    status: WorkflowStatus
     steps_executed: list[StepExecuted]
     accounts_processed: int | None = None
     emails_sent: int | None = None

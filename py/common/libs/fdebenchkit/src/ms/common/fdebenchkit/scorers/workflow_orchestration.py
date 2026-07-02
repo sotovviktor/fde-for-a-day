@@ -699,8 +699,10 @@ def _score_template_goal_completion(
                 _count_matching_params(
                     candidate_steps,
                     "email_send",
-                    lambda params: _normalize(params.get("template", "")) == "renewal_quote"
-                    and _normalize(str(params.get("variables", {}).get("plan", ""))) == expected_plan,
+                    lambda params: (
+                        _normalize(params.get("template", "")) == "renewal_quote"
+                        and _normalize(str(params.get("variables", {}).get("plan", ""))) == expected_plan
+                    ),
                 )
                 == 1,
                 _count_matching_params(
@@ -820,15 +822,19 @@ def _score_template_constraints(
                 _count_matching_params(
                     candidate_steps,
                     "notification_send",
-                    lambda params: _normalize(params.get("user_id", "")) == "oncall_engineer"
-                    and _normalize(params.get("channel", "")) == "sms",
+                    lambda params: (
+                        _normalize(params.get("user_id", "")) == "oncall_engineer"
+                        and _normalize(params.get("channel", "")) == "sms"
+                    ),
                 )
                 == 1,
                 _count_matching_params(
                     candidate_steps,
                     "notification_send",
-                    lambda params: _normalize(params.get("user_id", "")) == "engineering_manager"
-                    and _normalize(params.get("channel", "")) == "slack",
+                    lambda params: (
+                        _normalize(params.get("user_id", "")) == "engineering_manager"
+                        and _normalize(params.get("channel", "")) == "slack"
+                    ),
                 )
                 == (1 if escalated else 0),
             ]
